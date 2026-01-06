@@ -3,7 +3,7 @@
 <html>
 <style>
     p   {max-width:900px; word-wrap:break-word;}
-    ul   {max-width:900px; word-wrap:break-word;}
+    ul  {max-width:900px; word-wrap:break-word;}
     code{font-size:large;}
     h1  {background-color:#005035; color:white; padding:0.2em; border-radius:5px}
     h2  {background-color:#005035; color:white; padding:0.1em; border-radius:5px; display:inline-block;}
@@ -25,103 +25,239 @@
 
     <h2>Lab Description</h2>
 
-    <p>In this lab, you will interact with a basic 8-bit computer system, with a highly simplified instruction set. You'll do this 
-    by translating the basic commands, which are described below, into the corresponding binary values, which is what the system would 
-    actually utilize. This will later be accompanied by the translation of these instructions to hexidecimal and decimal values, as well. 
-    You will also be asked to provide basic descriptions of what the given programs do, but never in significant depth.
+    <p>
+        In this lab, you will interact with a basic 8-bit computer system, with a highly simplified instruction format.
+        You will translate between:
+        <ul>
+            <li>English descriptions of commands</li>
+            <li>The corresponding 8-bit binary values the system executes</li>
+        </ul>
+        Later sections may ask you to translate those binary values to hexidecimal and decimal as well.
+        You will also be asked to provide basic descriptions of what short programs do (never in significant depth).
+    </p>
 
-    For this lab, you will submit either:
-    <ul>
-        <li>A Word Document/PDF File</li>
-        <li>A Plaintext .txt File</li>
-    </ul>
+    <p>
+        For this lab, you will submit either:
+        <ul>
+            <li>A Word Document/PDF File</li>
+            <li>A Plaintext .txt File</li>
+        </ul>
     </p>
 
     <h3>Submission Format</h3>
 
     <p>
-    For each question, write the corresponding number and answer in the document, each on a new line. Some questions will have multiple parts, such as "Q4.1"; 
-    treat this as individual questions which are answered on separate lines. If there are question designations like this in a table, you will fill in the blank
-    as the answer to that question.
+        For each question, write the corresponding number and answer in the document, each on a new line.
+        Some questions will have multiple parts, such as "Q4.1"; treat this as individual questions which are answered on separate lines.
+        If there are question designations like this in a table, you will fill in the blank as the answer to that question.
     </p>
 
     <h2>Part 1: System Architecture</h2>
 
-    <p>Below is a basic description of the 8-bit system that we will utilize for the lab. There is two important components you need to understand:
+    <p>
+        Below is a basic description of the 8-bit system that we will utilize for the lab. There are two important components you need to understand:
         <ul>
-            <li><b>Registers</b>: Registers are basic areas in which we can store 8-bit values, such as "<code>00110011</code>". This system has <b>8 registers</b>. 
-            These slots are ordered, counted from 0 to 7, and their position (register number) can be represented with a <b>3-bit</b> value, like "<code>011</code>".</li><br>
+            <li>
+                <b>Registers</b>: Registers are small storage locations that each hold an 8-bit value, such as <code>00110011</code>.
+                This system has <b>4 registers</b>. They are selected using a <b>2-bit</b> register ID:
+                <ul>
+                    <li>Register ID <code>00</code></li>
+                    <li>Register ID <code>01</code></li>
+                    <li>Register ID <code>10</code></li>
+                    <li>Register ID <code>11</code></li>
+                </ul>
+            </li><br>
+            <li>
+                <b>Memory</b>: Memory is a larger storage area than registers. Some instructions may read from memory or write to memory.
+                In this simplified system, <b>memory access is controlled by a single "memory access" bit</b> within each instruction.
+            </li>
+        </ul>
+    </p>
+
+    <h3>Instruction Format</h3>
+
+    <p>
+        Every instruction is exactly 8 bits and is formatted like this:
+        <br><br>
+        <code>[3-bit instruction] [1-bit memory access] [2-bit source register 1] [2-bit source register 2]</code>
+        <br><br>
+        We will write these fields as:
+        <br><br>
+        <code>iii m s1 s2</code>
+        <ul>
+            <li><code>iii</code> = the 3-bit instruction code (which operation to perform)</li>
+            <li><code>m</code> = the 1-bit memory access flag
+                <ul>
+                    <li><code>m = 1</code> means: this instruction is allowed to perform a memory read/write (required for load/store)</li>
+                    <li><code>m = 0</code> means: this instruction does not use memory (recommended for non-memory operations)</li>
+                </ul>
+            </li>
+            <li><code>s1</code> = 2-bit register ID for source register 1</li>
+            <li><code>s2</code> = 2-bit register ID for source register 2</li>
         </ul>
     </p>
 
     <h3>Commands</h3>
 
-    <p>Now that we understand the basic definitions of these components, we can talk about how to use them. There are four basic things this system can do, which are defined below. In 
-        each definition, there will be some components inside of brackets, such as "<code>[rs1]</code>". This represents a place that different values could be placed, which change How
-        the actual commands will execute. If the letters inside of brackets start with "<code>rs</code>" (such as "<code>[rs2]</code>"), this represents a place to put a register's 3-bit
-        register number. If the letters inside of the brackets start with "<code>ma</code>" (such as "<code>[ma]</code>"), this represents a place to put a memory slot's 6-bit slot number.
+    <p>
+        This system supports 8 operations (because 3 bits can represent 8 distinct instruction codes).
+        The table below defines the instruction codes we will use in this lab:
+    </p>
 
+    <table style="border-collapse:collapse; max-width:900px;">
+        <thead>
+            <tr>
+                <th><b>Instruction Code (<code>iii</code>)</b></th>
+                <th><b>Name</b></th>
+                <th><b>When is <code>m</code> required?</b></th>
+                <th><b>What it does</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>000</code></td>
+                <td><b>IN</b> (Read Input)</td>
+                <td><code>m = 0</code> (memory not used)</td>
+                <td>Read a value from <b>input</b> into register <code>s1</code>. (<code>s2</code> ignored.)</td>
+            </tr>
+            <tr>
+                <td><code>001</code></td>
+                <td><b>OUT</b> (Write Output)</td>
+                <td><code>m = 0</code> (memory not used)</td>
+                <td>Write the contents of register <b><code>01</code></b> (Register #1) to <b>output</b>. (<code>s1</code> and <code>s2</code> ignored.)</td>
+            </tr>
+            <tr>
+                <td><code>010</code></td>
+                <td><b>LOAD</b></td>
+                <td><code>m = 1</code> required</td>
+                <td>Load from <b>memory address indicated by <code>s1</code></b> into register <code>s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>011</code></td>
+                <td><b>STORE</b></td>
+                <td><code>m = 1</code> required</td>
+                <td>Store the value in register <code>s1</code> into <b>memory address indicated by <code>s2</code></b>.</td>
+            </tr>
+            <tr>
+                <td><code>100</code></td>
+                <td><b>ADD</b></td>
+                <td><code>m = 0</code> (memory not used)</td>
+                <td>Add registers <code>s1</code> and <code>s2</code>, store the result back into <code>s1</code>: <code>s1 = s1 + s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>101</code></td>
+                <td><b>SUB</b></td>
+                <td><code>m = 0</code> (memory not used)</td>
+                <td>Subtract registers <code>s1</code> and <code>s2</code>, store the result back into <code>s1</code>: <code>s1 = s1 - s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>110</code></td>
+                <td><b>AND</b></td>
+                <td><code>m = 0</code> (memory not used)</td>
+                <td>Bitwise AND of <code>s1</code> and <code>s2</code>, store back into <code>s1</code>: <code>s1 = s1 AND s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>111</code></td>
+                <td><b>OR</b></td>
+                <td><code>m = 0</code> (memory not used)</td>
+                <td>Bitwise OR of <code>s1</code> and <code>s2</code>, store back into <code>s1</code>: <code>s1 = s1 OR s2</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <b>Important notes about the memory-access bit (<code>m</code>):</b>
         <ul>
-            <li><b>Add Two Registers</b> (Code: <code>00[rs1][rs2]</code>): This function adds the value in <code>[rs1]</code> to the value stored in Register #1 (<code>001</code>), 
-            and stores the resulting value in <code>[rs2]</code>.</li><br>
-            <li><b>Subtract Two Registers</b> (Code: <code>01[rs1][rs2]</code>): This function subtracts the value in <code>[rs1]</code> from the value stored in Register #1 (<code>001</code>), 
-            and stores the resulting value in <code>[rs2]</code>.</li><br>
-            <li><b>Bitwise Logical AND Two Registers</b> (Code: <code>10[rs1][rs2]</code>): This function applies bitwise logical AND to the values in <code>[rs1]</code> 
-            and Register #1 (<code>001</code>), and stores the resulting value in <code>[rs2]</code>.</li><br>
-            <li><b>Bitwise Logical OR Two Registers</b> (Code: <code>11[rs1][rs2]</code>): This function applies bitwise logical OR to the values in <code>[rs1]</code> 
-            and Register #1 (<code>001</code>), and stores the resulting value in <code>[rs2]</code>.</li><br>
+            <li>For <b>LOAD</b> and <b>STORE</b>, you must set <code>m = 1</code> (otherwise the instruction should be considered invalid for this lab).</li>
+            <li>For all other instructions, you should use <code>m = 0</code>. (If <code>m</code> is set to 1 accidentally, it is "don’t care" for this lab unless your instructor specifies otherwise.)</li>
         </ul>
     </p>
 
     <h4>Instruction Examples</h4>
-    <p>Below are some utilizations of the the instructions above, with descriptions:
+
+    <p>Below are example instructions, shown in binary and broken into their fields <code>(iii)(m)(s1)(s2)</code>:</p>
+
+    <ul>
+        <li>
+            <code>0000 10 00</code> &nbsp; <code>(000)(0)(10)(00)</code>:
+            Read input into register <code>10</code>.
+        </li>
+        <li>
+            <code>0010 00 00</code> &nbsp; <code>(001)(0)(00)(00)</code>:
+            Write register <code>01</code> (Register #1) to output. (Both register fields ignored.)
+        </li>
+        <li>
+            <code>0101 00 11</code> &nbsp; <code>(010)(1)(00)(11)</code>:
+            LOAD from memory address indicated by register <code>00</code> into register <code>11</code>.
+        </li>
+        <li>
+            <code>0111 10 01</code> &nbsp; <code>(011)(1)(10)(01)</code>:
+            STORE the value in register <code>10</code> into the memory address indicated by register <code>01</code>.
+        </li>
+        <li>
+            <code>1000 11 00</code> &nbsp; <code>(100)(0)(11)(00)</code>:
+            ADD: <code>R11 = R11 + R00</code>.
+        </li>
+        <li>
+            <code>1100 01 11</code> &nbsp; <code>(110)(0)(01)(11)</code>:
+            AND: <code>R01 = R01 AND R11</code>.
+        </li>
+    </ul>
+
+    <h3>Special Behavior</h3>
+
+    <p>
+        This simplified system has one special behavior used throughout the lab:
         <ul>
-            <li><code>00001101</code> <code>(00)(001)(101)</code>: Add Register #1 to Register #1, store in Register #5</li>
-            <li><code>01011110</code> <code>(01)(011)(110)</code>: Subtract Register #3 from Register #1, store in Register #6</li>
-            <li><code>10010100</code> <code>(10)(010)(100)</code>: Apply Logical AND to Reigsters #2 and #1, store in Register #4</li>
-            <li><code>11000111</code> <code>(11)(000)(111)</code>: Apply Logical OR to Reigsters #0 and #1, store in Register #7</li>
+            <li>
+                <b>OUT always outputs Register <code>01</code></b>: The OUT instruction ignores <code>s1</code> and <code>s2</code> and always writes the contents of register <code>01</code> to output.
+            </li>
         </ul>
     </p>
 
-    <h3>Special Registers</h3>
-    <p>There are two special registers in this system, which have special functions:
-        <ul>
-            <li><b>Register #0</b> (<code>000</code>): Register #0 is special as it always holds the value 0 (<code>00000000</code>). It cannot be saved over, 
-            and will always have this value.</li>
-            <li><b>Register #1</b> (<code>001</code>): Register #1 is special as it always the second register used in any command. You can save over it, or otherwise use it,
-            as you would any other register, but it will always be used in all commands.</li>
-        </ul>
-    </p><br>
-
     <h3><mark>Questions</mark></h3>
+
     <p>
         <ul>
-            <li><b>Q1</b>: How many possible commands can be used in this system? (Hint: Think about the binary numbers!)
-            <ul>
-                <li>
-                    <b>Q1.1</b>: How many <i>useful</i> commands are there? Provide examples of commands that aren't useful.
-                </li>
-            </ul>
-        </li>
-        <li><b>Q2</b>: What could happen if you utilized a command without knowing what was in Register #1?</li>
-        <li><b>Q3</b>: How could you clear out the value in Register #1, using the provided commands? You don't need to 
-            type out a full command or binary.(Hint: How would you make Register #1 hold the value 0?)</li>
+            <li>
+                <b>Q1</b>: How many possible 8-bit instructions exist in this system format?
+                <ul>
+                    <li><b>Q1.1</b>: How many <i>valid</i> instructions exist if we enforce: LOAD/STORE must use <code>m=1</code>, and all other instructions must use <code>m=0</code>?</li>
+                </ul>
+            </li>
+            <li>
+                <b>Q2</b>: Give one example of a “bit pattern” that is syntactically well-formed (it matches the field sizes),
+                but would be considered <i>invalid</i> for this lab due to incorrect use of the memory bit. Explain why.
+            </li>
+            <li>
+                <b>Q3</b>: Which parts of the instruction are ignored during the <b>OUT</b> instruction, and what practical issue could that cause when you are trying to read/debug a program?
+            </li>
+            <li>
+                <b>Q4</b>: Describe one way to “clear” a register (set it to <code>00000000</code>) using only the provided instructions.
+                You do <i>not</i> need to write full binary for this answer—an English description is fine.
+                <ul>
+                    <li><b>Hint</b>: Consider what happens if you subtract a register from itself.</li>
+                </ul>
+            </li>
         </ul>
     </p>
 
     <h2>Part 2: Using the System</h2>
 
-    <p>Now we'll utilize short snippets of code to make this system do things. For each program, we provide a table including the instructions 
-        utilized, but often only the binary or english description of the command. For each program, you'll be required to fill in the table parts 
-        highlighted with questions, and potential answer questions related to the program afterwards.
+    <p>
+        Now we'll utilize short snippets of code to make this system do things.
+        For each program, we provide a table including the instructions utilized, but often only the binary or English description of the command.
+        For each program, you'll be required to fill in the table parts highlighted with questions, and answer short questions related to the program afterwards.
     </p>
 
     <h2>Part 3: Further Conversions</h2>
     
-    <p>Now we'll focus on incorporating your knowledge of conversions between decimal, hexidecimal, and binary. We'll provide more programs like above, 
-        but this time each command will need to fill the blanks in table, including the english description, binary command, hexidecimal command, or decimal command. 
-        Again, you may be asked short questions after each program that relate to them.
+    <p>
+        Now we'll focus on incorporating your knowledge of conversions between decimal, hexidecimal, and binary.
+        We'll provide more programs like above, but this time each command will need to fill the blanks in a table, including the English description,
+        binary command, hexidecimal command, or decimal command. Again, you may be asked short questions after each program that relate to them.
     </p>
+
 </main>
 
 </html>
