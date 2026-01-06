@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+<style>
+    p   {max-width:900px; word-wrap:break-word;}
+    ul   {max-width:900px; word-wrap:break-word;}
+    code{font-size:large;}
+    h1  {background-color:#005035; color:white; padding:0.2em; border-radius:5px}
+    h2  {background-color:#005035; color:white; padding:0.1em; border-radius:5px; display:inline-block;}
+    th, td {padding: 5px; text-align: left; max-width:400px; word-wrap:break-word; border-left: 1px solid black; border-right:1px solid black; border-bottom: 1px solid black}
+</style>
+
+<main>
+
+    <h1>Module 1 Lab: Translating Computer Instructions</h1>
+    
+    <p>This lab covers the following course topics:
+        <ul>
+            <li>Understanding of the basic function of a Von-Neumann architecture.</li>
+            <li>Conversion of decimal values to binary values, and the reverse.</li>
+            <li>Conversion of binary values into hexidecimal values, and the reverse.</li>
+            <li>Translation of binary values to basic computing instructions, and the reverse.</li>
+        </ul>
+    </p>
+
+    <h2>Lab Description</h2>
+
+    <p>In this lab, you will interact with a basic 8-bit computer system, with a highly simplified instruction set. You'll do this 
+    by translating the basic commands, which are described below, into the corresponding binary values, which is what the system would 
+    actually utilize. This will later be accompanied by the translation of these instructions to hexidecimal and decimal values, as well. 
+    You will also be asked to provide basic descriptions of what the given programs do, but never in significant depth.
+
+    For this lab, you will submit either:
+    <ul>
+        <li>A Word Document/PDF File</li>
+        <li>A Plaintext .txt File</li>
+    </ul>
+    </p>
+
+    <h3>Submission Format</h3>
+
+    <p>
+    For each question, write the corresponding number and answer in the document, each on a new line. Some questions will have multiple parts, such as "Q4.1"; 
+    treat this as individual questions which are answered on separate lines. If there are question designations like this in a table, you will fill in the blank
+    as the answer to that question.
+    </p>
+
+    <h2>Part 1: System Architecture</h2>
+
+    <p>Below is a basic description of the 8-bit system that we will utilize for the lab. There is two important components you need to understand:
+        <ul>
+            <li><b>Registers</b>: Registers are basic areas in which we can store 8-bit values, such as "<code>00110011</code>". This system has <b>8 registers</b>. 
+            These slots are ordered, counted from 0 to 7, and their position (register number) can be represented with a <b>3-bit</b> value, like "<code>011</code>".</li><br>
+        </ul>
+    </p>
+
+    <h3>Commands</h3>
+
+    <p>Now that we understand the basic definitions of these components, we can talk about how to use them. There are four basic things this system can do, which are defined below. In 
+        each definition, there will be some components inside of brackets, such as "<code>[rs1]</code>". This represents a place that different values could be placed, which change How
+        the actual commands will execute. If the letters inside of brackets start with "<code>rs</code>" (such as "<code>[rs2]</code>"), this represents a place to put a register's 3-bit
+        register number. If the letters inside of the brackets start with "<code>ma</code>" (such as "<code>[ma]</code>"), this represents a place to put a memory slot's 6-bit slot number.
+
+        <ul>
+            <li><b>Add Two Registers</b> (Code: <code>00[rs1][rs2]</code>): This function adds the value in <code>[rs1]</code> to the value stored in Register #1 (<code>001</code>), 
+            and stores the resulting value in <code>[rs2]</code>.</li><br>
+            <li><b>Subtract Two Registers</b> (Code: <code>01[rs1][rs2]</code>): This function subtracts the value in <code>[rs1]</code> from the value stored in Register #1 (<code>001</code>), 
+            and stores the resulting value in <code>[rs2]</code>.</li><br>
+            <li><b>Bitwise Logical AND Two Registers</b> (Code: <code>10[rs1][rs2]</code>): This function applies bitwise logical AND to the values in <code>[rs1]</code> 
+            and Register #1 (<code>001</code>), and stores the resulting value in <code>[rs2]</code>.</li><br>
+            <li><b>Bitwise Logical OR Two Registers</b> (Code: <code>11[rs1][rs2]</code>): This function applies bitwise logical OR to the values in <code>[rs1]</code> 
+            and Register #1 (<code>001</code>), and stores the resulting value in <code>[rs2]</code>.</li><br>
+        </ul>
+    </p>
+
+    <h4>Instruction Examples</h4>
+    <p>Below are some utilizations of the the instructions above, with descriptions:
+        <ul>
+            <li><code>00001101</code> <code>(00)(001)(101)</code>: Add Register #1 to Register #1, store in Register #5</li>
+            <li><code>01011110</code> <code>(01)(011)(110)</code>: Subtract Register #3 from Register #1, store in Register #6</li>
+            <li><code>10010100</code> <code>(10)(010)(100)</code>: Apply Logical AND to Reigsters #2 and #1, store in Register #4</li>
+            <li><code>11000111</code> <code>(11)(000)(111)</code>: Apply Logical OR to Reigsters #0 and #1, store in Register #7</li>
+        </ul>
+    </p>
+
+    <h3>Special Registers</h3>
+    <p>There are two special registers in this system, which have special functions:
+        <ul>
+            <li><b>Register #0</b> (<code>000</code>): Register #0 is special as it always holds the value 0 (<code>00000000</code>). It cannot be saved over, 
+            and will always have this value.</li>
+            <li><b>Register #1</b> (<code>001</code>): Register #1 is special as it always the second register used in any command. You can save over it, or otherwise use it,
+            as you would any other register, but it will always be used in all commands.</li>
+        </ul>
+    </p><br>
+
+    <h3><mark>Questions</mark></h3>
+    <p>
+        <ul>
+            <li><b>Q1</b>: How many possible commands can be used in this system? (Hint: Think about the binary numbers!)
+            <ul>
+                <li>
+                    <b>Q1.1</b>: How many <i>useful</i> commands are there? Provide examples of commands that aren't useful.
+                </li>
+            </ul>
+        </li>
+        <li><b>Q2</b>: What could happen if you utilized a command without knowing what was in Register #1?</li>
+        <li><b>Q3</b>: How could you clear out the value in Register #1, using the provided commands? You don't need to 
+            type out a full command or binary.(Hint: How would you make Register #1 hold the value 0?)</li>
+        </ul>
+    </p>
+
+    <h2>Part 2: Using the System</h2>
+
+    <p>Now we'll utilize short snippets of code to make this system do things. For each program, we provide a table including the instructions 
+        utilized, but often only the binary or english description of the command. For each program, you'll be required to fill in the table parts 
+        highlighted with questions, and potential answer questions related to the program afterwards.
+    </p>
+
+    <h2>Part 3: Further Conversions</h2>
+    
+    <p>Now we'll focus on incorporating your knowledge of conversions between decimal, hexidecimal, and binary. We'll provide more programs like above, 
+        but this time each command will need to fill the blanks in table, including the english description, binary command, hexidecimal command, or decimal command. 
+        Again, you may be asked short questions after each program that relate to them.
+    </p>
+</main>
+
+</html>
