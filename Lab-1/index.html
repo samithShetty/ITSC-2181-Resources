@@ -250,6 +250,72 @@
         For each program, you'll be required to fill in the table parts highlighted with questions, and answer short questions related to the program afterwards.
     </p>
 
+    <h3>Program 1: Add Two Inputs, Output the Sum</h3>
+
+    <p>
+        This program reads two values from input, adds them, and outputs the result.
+        Assume the first input goes into register <code>10</code> and the second input goes into register <code>11</code>.
+        Then we compute <code>R10 = R10 + R11</code>, copy the result into <code>R01</code>, and output it.
+    </p>
+    
+    <p>
+        <b>Note:</b> Since OUT only outputs <code>R01</code>, we need to move the computed result into <code>R01</code>.
+        We do not have a dedicated MOV instruction, so we use:
+        <ul>
+            <li>Clear <code>R01</code> by doing <code>R01 = R01 - R01</code></li>
+            <li>Add the value we want into <code>R01</code> (e.g., <code>R01 = R01 + R10</code>)</li>
+        </ul>
+    </p>
+    
+    <table style="border-collapse:collapse; max-width:900px;">
+        <thead>
+            <tr>
+                <th><b>Step</b></th>
+                <th><b>English Description</b></th>
+                <th><b>Binary Instruction</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>IN: Read input into register <code>10</code></td>
+                <td><mark><b>Q9</b>: __________</mark></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>IN: Read input into register <code>11</code></td>
+                <td><mark><b>Q10</b>: __________</mark></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>ADD: <code>R10 = R10 + R11</code></td>
+                <td><mark><b>Q11</b>: __________</mark></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>SUB: Clear register <code>01</code> by doing <code>R01 = R01 - R01</code></td>
+                <td><mark><b>Q12</b>: __________</mark></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>ADD: Copy sum into <code>R01</code> by doing <code>R01 = R01 + R10</code></td>
+                <td><mark><b>Q13</b>: __________</mark></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>OUT: Write register <code>01</code> to output</td>
+                <td><mark><b>Q14</b>: __________</mark></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <p>
+        <ul>
+            <li><b>Q15</b>: Which register holds the final sum right after Step 3? Which register holds the final sum right after Step 5?</li>
+            <li><b>Q16</b>: Why do we need Steps 4 and 5 in order to output the sum?</li>
+        </ul>
+    </p>
+
     <h2>Part 3: Further Conversions</h2>
     
     <p>
