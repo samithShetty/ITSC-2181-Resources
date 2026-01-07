@@ -215,8 +215,8 @@
 
     <p>
         Now we'll utilize short snippets of code to make this system do things.
-        For each program, we provide a table including the instructions utilized, but often only the binary or English description of the command.
-        For each program, you'll be required to fill in the table parts highlighted with questions, and answer short questions related to the program afterwards.
+        For each program, we provide an incomplete table that includes the sequential instructions in different forms.
+        For each program, you'll be required to fill in the missing table cells, and answer short questions related to the program afterwards.
     </p>
 
     <h3>Program 1: Add Two Inputs, Output the Sum</h3>
@@ -226,8 +226,10 @@
         Assume the first input goes into register #0 and the second input goes into register #1.
         Then we compute <code>R1 = R1 + R0</code>, copy the result into <code>R01</code>, and output it.
     </p>
+        
+    <p><b>Note:</b> Register 3 holds the memory address of variable x.</p>
     
-    <table style="border-collapse:collapse; max-width:900px;">
+    <table style="border-collapse:collapse; text-align:center;">
         <thead>
             <tr>
                 <th><b>Step</b></th>
@@ -281,14 +283,52 @@
         </ul>
     </p>
 
-    <h2>Part 3: Further Conversions</h2>
+    <h3>Program 2: Compute an Expression and Store Result in Memory</h3>
     
-    <p>
-        Now we'll focus on incorporating your knowledge of conversions between decimal, hexidecimal, and binary.
-        We'll provide more programs like above, but this time each command will need to fill the blanks in a table, including the English description,
-        binary command, hexidecimal command, or decimal command. Again, you may be asked short questions after each program that relate to them.
-    </p>
+    <p>Fill in the missing cells in the table below. Afterwards, you will be asked to decipher what the program as a whole does.</p>
+    <p><b>Note:</b> Register 3 still holds the memory address of variable x.</p>
 
+        <table style="border-collapse:collapse; text-align:center;">
+        <thead>
+            <tr>
+                <th><b>Step</b></th>
+                <th><b>Binary Instruction</b></th>
+                <th><b>Decimal Conversion</b></th>
+                <th><b>Hexadecimal Conversion</b></th>
+                <th><b>English Description</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td>226</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td>A1</td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Store result in x</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <ul>
+            <li><b>Q8</b>: What is the overall expression being computed by this program?</li>
+        </ul>
+    </p>
 </main>
 
 </html>
