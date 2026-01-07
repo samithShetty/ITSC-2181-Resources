@@ -59,13 +59,7 @@
         <ul>
             <li>
                 <b>Registers</b>: Registers are small storage locations that each hold an 8-bit value, such as <code>00110011</code>.
-                This system has <b>4 registers</b>. They are selected using a <b>2-bit</b> register ID:
-                <ul>
-                    <li>Register ID <code>00</code></li>
-                    <li>Register ID <code>01</code></li>
-                    <li>Register ID <code>10</code></li>
-                    <li>Register ID <code>11</code></li>
-                </ul>
+                This system has <b>4 registers</b>, numbered 0-3.
             </li><br>
             <li>
                 <b>Memory</b>: Memory is a larger storage area than registers. Some instructions may read from memory or write to memory.
@@ -88,8 +82,8 @@
             <li><code>iii</code> = the 3-bit instruction code (which operation to perform)</li>
             <li><code>m</code> = the 1-bit memory access flag
                 <ul>
-                    <li><code>m = 1</code> means: this instruction is allowed to perform a memory read/write (required for load/store)</li>
-                    <li><code>m = 0</code> means: this instruction does not use memory (recommended for non-memory operations)</li>
+                    <li><code>m = 1</code> means: this instruction is allowed to perform a memory read/write</li>
+                    <li><code>m = 0</code> means: this instruction only uses registers</li>
                 </ul>
             </li>
             <li><code>s1</code> = 2-bit register ID for source register 1</li>
@@ -109,7 +103,6 @@
             <tr>
                 <th><b>Instruction Code (<code>iii</code>)</b></th>
                 <th><b>Name</b></th>
-                <th><b>When is <code>m</code> required?</b></th>
                 <th><b>What it does</b></th>
             </tr>
         </thead>
@@ -117,49 +110,41 @@
             <tr>
                 <td><code>000</code></td>
                 <td><b>IN</b> (Read Input)</td>
-                <td><code>m = 0</code> (memory not used)</td>
                 <td>Read a value from <b>input</b> into register <code>s1</code>. (<code>s2</code> ignored.)</td>
             </tr>
             <tr>
                 <td><code>001</code></td>
                 <td><b>OUT</b> (Write Output)</td>
-                <td><code>m = 0</code> (memory not used)</td>
                 <td>Write the contents of register <b><code>01</code></b> (Register #1) to <b>output</b>. (<code>s1</code> and <code>s2</code> ignored.)</td>
             </tr>
             <tr>
                 <td><code>010</code></td>
                 <td><b>LOAD</b></td>
-                <td><code>m = 1</code> required</td>
                 <td>Load from <b>memory address indicated by <code>s1</code></b> into register <code>s2</code>.</td>
             </tr>
             <tr>
                 <td><code>011</code></td>
                 <td><b>STORE</b></td>
-                <td><code>m = 1</code> required</td>
                 <td>Store the value in register <code>s1</code> into <b>memory address indicated by <code>s2</code></b>.</td>
             </tr>
             <tr>
                 <td><code>100</code></td>
                 <td><b>ADD</b></td>
-                <td><code>m = 0</code> (memory not used)</td>
                 <td>Add registers <code>s1</code> and <code>s2</code>, store the result back into <code>s1</code>: <code>s1 = s1 + s2</code>.</td>
             </tr>
             <tr>
                 <td><code>101</code></td>
                 <td><b>SUB</b></td>
-                <td><code>m = 0</code> (memory not used)</td>
                 <td>Subtract registers <code>s1</code> and <code>s2</code>, store the result back into <code>s1</code>: <code>s1 = s1 - s2</code>.</td>
             </tr>
             <tr>
                 <td><code>110</code></td>
                 <td><b>AND</b></td>
-                <td><code>m = 0</code> (memory not used)</td>
                 <td>Bitwise AND of <code>s1</code> and <code>s2</code>, store back into <code>s1</code>: <code>s1 = s1 AND s2</code>.</td>
             </tr>
             <tr>
                 <td><code>111</code></td>
                 <td><b>OR</b></td>
-                <td><code>m = 0</code> (memory not used)</td>
                 <td>Bitwise OR of <code>s1</code> and <code>s2</code>, store back into <code>s1</code>: <code>s1 = s1 OR s2</code>.</td>
             </tr>
         </tbody>
@@ -168,8 +153,8 @@
     <p>
         <b>Important notes about the memory-access bit (<code>m</code>):</b>
         <ul>
-            <li>For <b>LOAD</b> and <b>STORE</b>, you must set <code>m = 1</code> (otherwise the instruction should be considered invalid for this lab).</li>
-            <li>For all other instructions, you should use <code>m = 0</code>. (If <code>m</code> is set to 1 accidentally, it is "don’t care" for this lab unless your instructor specifies otherwise.)</li>
+            <li>For <b>LOAD</b> and <b>STORE</b>, you must set <code>m = 1</code></li>
+            <li>For all other instructions, you should use <code>m = 0</code>. </li>
         </ul>
     </p>
 
@@ -179,51 +164,35 @@
 
     <ul>
         <li>
-            <code>0000 10 00</code> &nbsp; <code>(000)(0)(10)(00)</code>:
+            <code>00001000</code> &nbsp; <code>(000)(0)(10)(00)</code>:
             Read input into register <code>10</code>.
         </li>
         <li>
-            <code>0010 00 00</code> &nbsp; <code>(001)(0)(00)(00)</code>:
+            <code>00100000</code> &nbsp; <code>(001)(0)(00)(00)</code>:
             Write register <code>01</code> (Register #1) to output. (Both register fields ignored.)
         </li>
         <li>
-            <code>0101 00 11</code> &nbsp; <code>(010)(1)(00)(11)</code>:
+            <code>01010011</code> &nbsp; <code>(010)(1)(00)(11)</code>:
             LOAD from memory address indicated by register <code>00</code> into register <code>11</code>.
         </li>
         <li>
-            <code>0111 10 01</code> &nbsp; <code>(011)(1)(10)(01)</code>:
+            <code>01111001</code> &nbsp; <code>(011)(1)(10)(01)</code>:
             STORE the value in register <code>10</code> into the memory address indicated by register <code>01</code>.
         </li>
         <li>
-            <code>1000 11 00</code> &nbsp; <code>(100)(0)(11)(00)</code>:
+            <code>10001100</code> &nbsp; <code>(100)(0)(11)(00)</code>:
             ADD: <code>R11 = R11 + R00</code>.
         </li>
         <li>
-            <code>1100 01 11</code> &nbsp; <code>(110)(0)(01)(11)</code>:
+            <code>11000111</code> &nbsp; <code>(110)(0)(01)(11)</code>:
             AND: <code>R01 = R01 AND R11</code>.
         </li>
     </ul>
-
-    <h3>Special Behavior</h3>
-
-    <p>
-        This simplified system has one special behavior used throughout the lab:
-        <ul>
-            <li>
-                <b>OUT always outputs Register <code>01</code></b>: The OUT instruction ignores <code>s1</code> and <code>s2</code> and always writes the contents of register <code>01</code> to output.
-            </li>
-        </ul>
-    </p>
-
     <h3><mark>Questions</mark></h3>
-
     <p>
         <ul>
             <li>
                 <b>Q1</b>: How many possible 8-bit instructions exist in this system format?
-                <ul>
-                    <li><b>Q1.1</b>: How many <i>valid</i> instructions exist if we enforce: LOAD/STORE must use <code>m=1</code>, and all other instructions must use <code>m=0</code>?</li>
-                </ul>
             </li>
             <li>
                 <b>Q2</b>: Give one example of a “bit pattern” that is syntactically well-formed (it matches the field sizes),
@@ -236,7 +205,7 @@
                 <b>Q4</b>: Describe one way to “clear” a register (set it to <code>00000000</code>) using only the provided instructions.
                 You do <i>not</i> need to write full binary for this answer—an English description is fine.
                 <ul>
-                    <li><b>Hint</b>: Consider what happens if you subtract a register from itself.</li>
+                    <li><b>Hint</b>: Consider what operations can produce a result of zero.</li>
                 </ul>
             </li>
         </ul>
@@ -253,66 +222,62 @@
     <h3>Program 1: Add Two Inputs, Output the Sum</h3>
 
     <p>
-        This program reads two values from input, adds them, and outputs the result.
-        Assume the first input goes into register <code>10</code> and the second input goes into register <code>11</code>.
-        Then we compute <code>R10 = R10 + R11</code>, copy the result into <code>R01</code>, and output it.
-    </p>
-    
-    <p>
-        <b>Note:</b> Since OUT only outputs <code>R01</code>, we need to move the computed result into <code>R01</code>.
-        We do not have a dedicated MOV instruction, so we use:
-        <ul>
-            <li>Clear <code>R01</code> by doing <code>R01 = R01 - R01</code></li>
-            <li>Add the value we want into <code>R01</code> (e.g., <code>R01 = R01 + R10</code>)</li>
-        </ul>
+        This program reads one value from input, one value from memory, adds them, and outputs the result.
+        Assume the first input goes into register #0 and the second input goes into register #1.
+        Then we compute <code>R1 = R1 + R0</code>, copy the result into <code>R01</code>, and output it.
     </p>
     
     <table style="border-collapse:collapse; max-width:900px;">
         <thead>
             <tr>
                 <th><b>Step</b></th>
-                <th><b>English Description</b></th>
                 <th><b>Binary Instruction</b></th>
+                <th><b>Decimal Conversion</b></th>
+                <th><b>Hexadecimal Conversion</b></th>
+                <th><b>English Description</b></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>1</td>
-                <td>IN: Read input into register <code>10</code></td>
-                <td><mark><b>Q9</b>: __________</mark></td>
+                <td>00001000</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>IN: Read input into register <code>11</code></td>
-                <td><mark><b>Q10</b>: __________</mark></td>
+                <td>01011101</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
             </tr>
             <tr>
                 <td>3</td>
-                <td>ADD: <code>R10 = R10 + R11</code></td>
-                <td><mark><b>Q11</b>: __________</mark></td>
+                <td>10000110</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
             </tr>
             <tr>
                 <td>4</td>
-                <td>SUB: Clear register <code>01</code> by doing <code>R01 = R01 - R01</code></td>
-                <td><mark><b>Q12</b>: __________</mark></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>ADD: Copy sum into <code>R01</code> by doing <code>R01 = R01 + R10</code></td>
-                <td><mark><b>Q13</b>: __________</mark></td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>OUT: Write register <code>01</code> to output</td>
-                <td><mark><b>Q14</b>: __________</mark></td>
+                <td>00100000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
             </tr>
         </tbody>
     </table>
     
     <p>
         <ul>
-            <li><b>Q15</b>: Which register holds the final sum right after Step 3? Which register holds the final sum right after Step 5?</li>
-            <li><b>Q16</b>: Why do we need Steps 4 and 5 in order to output the sum?</li>
+            <li><b>Q5</b>: Which register holds the final sum right after Step 3? Why is it important that this register specifically is used?</li>
+            <li><b>Q6</b>: Before Adding the numbers together, which registers holds the value of variable <code>x</code></li>
+            <li><b>Q7</b>: When will binary values be interpreted as the number seen in the binary column? When will it be interpreted as an instruction?</li>
+            
         </ul>
     </p>
 
