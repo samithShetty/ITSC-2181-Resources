@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html>
+<style>
+    main{font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif}
+    p   {max-width:900px; word-wrap:break-word;}
+    ul  {max-width:900px; word-wrap:break-word;}
+    code{font-size:large;}
+    h1  {background-color:#005035; color:white; padding:0.2em; border-radius:5px}
+    h2  {background-color:#005035; color:white; padding:0.1em; border-radius:5px; display:inline-block;}
+    th, td {padding: 5px; text-align: left; max-width:900px; word-wrap:break-word; border-top: 1px solid black; border-left: 1px solid black; border-right:1px solid black; border-bottom: 1px solid black; border-collapse:collapse}
+</style>
+
+<main>
+
+    <h1>ITSC 2181 - Introduction to Computer Systems</h1>
+
+    <h2>General Course Information</h2>
+    
+    <h3>Course Description</h3>
+
+    <p>Introduction to computer system abstractions reflected in programming languages, 
+    operating systems, architectures, and networks. Topics include: overview of computer 
+    and processor architecture, instruction set architecture and introduction to assembly 
+    language, C programming, system calls, processes and process memory layout, 
+    interfaces for memory allocation and file systems, file and directory management via 
+    the command line, network architecture and protocols (such as HTTP, MAC, IP, DNS).</p>
+
+    <p><b>This course is 4 credit hours.</b> <mark>If this is a <u>core course requirement</u> for you, you
+    must earn at least a C to pass.</mark></p>
+
+    <h3>Prerequisites</h3>
+
+    <p>ITSC 1212 with grade of C or above or DTSC 1302 with grade of C or above.</p>
+
+    <h2>Course Delivery Information</h2>
+
+    <h3>Contact Information</h3>
+    <p>
+        Instructor contact methods and office hours vary - please see course pages for individual instructor information.
+    </p>
+
+    <h3>Meeting Times</h3>
+
+    <p>All classes and lab meetings are face-to-face (in person). <i>Coursework will be completed between January 12, 2026 and May 11, 2026.</i></p>
+
+    <h3>Instructional Assistants</h3>
+    
+    <p>This course has instructional assistants (IA), which are students familiar with the 
+    course material employed to assist in the instruction and conduct of the course. 
+    There are 3 IAs (including 1 lead) per course section, with 15 IAs overall. 
+    IAs provide help to students through tutoring and office hours, 
+    conduct lab meetings and validate lab assignment understanding, and 
+    also grade assignments and tests.
+    Please see Canvas for contact information for your section's IAs and the IAs of other sections. 
+    The most efficient method to ask questions or get help is to use the Canvas Discussion Board, 
+    Ninerlink, or to stop by during office hours (either in person or using Zoom). 
+    Please use email only for personal matters, e.g. medical excuses.</p>
+
+    <h3>Course Textbook</h3>
+
+    <p>Dive into Systems - Version 1.2, Suzanne J. Matthews, Tia Newhall and Kevin  C. Webb<br>
+
+        You can find the <a href="https://diveintosystems.org/#_free_on_line_version ">full textbook online at no cost</a>.<br><br>
+
+    <mark>We will use this textbook in several assigned readings.</mark> This textbook is <b>required</b>. <br><br>
+    
+    You only need the free online version. 
+    The textbook is also available in print and e-book form, through No Starch Press (ISBN-13: 9781718501362). 
+    <i>Some readings for the class are not found in the textbook. These readings will  be provided in digital form, 
+        linked from the course Canvas site.</i></p>
+
+    <h3>Online Development Environment</h3>
+
+    <p>We will use a web-based software development environment for several course activities and labs. 
+        You will configure the environment as one of the course assignments.</p>
+
+    <h3>Technology Requirements </h3>
+
+    <p><b>You will need a personal computer to write, debug and test computer programs.</b> 
+    You will also need to be able to install and run software downloaded from the internet. 
+    Chromebooks or tablets are not sufficient.<br><br>
+
+    <b>Your laptop needs the ability to run Lockdown Browser for Exams.</b>
+    If you are unable to run Lockdown Browser on your computer then you are expected 
+    to find an alternative solution prior to the exam or risk receiving an incomplete grade for that 
+    exam. The <a href="https://library.charlotte.edu/check-out-request/borrow-laptops">Library Loaner Laptops program </a> is a great solution to this issue.
+    
+    You must have a Laptop computer meeting the <a href="https://oneit.charlotte.edu/support/students/niner-ready-laptop-requirement/recommendations/">UNC Charlotte computer specifications</a>. 
+    </p>
+
+    <h2>Course Content Information</h2>
+
+    <h3>Course Objectives or Learning Outcomes</h3>
+
+    <p>At the end of this course, students will be able to do the following: 
+        <ul>
+            <li>CO1: Explain the principles, components, progression and performance challenges  of computer architecture.</li>
+            <li>CO2: Explain the instruction set architecture of a computer system and how an  instruction is represented at the machine level and symbolic assembler level.</li>
+            <li>CO3: Map major high-level language patterns into assembly/machine language notations.</li>
+            <li>CO4: Convert numerical data between different representations including  binary, hexadecimal, decimal, and other formats.</li>
+            <li>CO5: Write, build and execute C programs.</li>
+            <li>CO6: Use the Unix command line for file & directory management.</li>
+            <li>CO7: Use system calls in C programs.</li>
+            <li>CO8: Explain the concept of layering in network software and identify the layers of the  OSI model.</li>
+            <li>CO9: Explain how hardware and software systems expose high level abstractions  to lower level features in the context of system programming, networking, and  architectures.</li>
+            <li>CO10: Explain the meaning and usage of IP and MAC addresses.</li>
+        </ul>
+    </p>
+
+    <h3>Course Topics</h3>
+
+    <p>
+        <ul>
+            <li>Principles of computer architecture and organization: Component of a computer system, Von-Neumann architecture, performance aspect of program execution on computers; abstractions for using and designing computer systems; and some of  the great ideas in computer architectures such as Moore's Law.</li>
+            <li>C programming basics and assembly format of a C program: C programming basics, variables and memory address (pointers); the relationship between arrays, pointers, and memory in C programming; numbers (binary, decimal, and hex); how a high level program is compiled, linked and executed in a computer, practice on using the  command line to compile, link and execute C programs.</li>
+            <li>Instruction set architecture using RISC-V ISA: memory and registers of the components of a computer; arithmetic and logic operation instructions; control  transfer instructions; and instructions for load data from memory to register and for  store data from register to memory; converting core high-level language constructs  (if-else, for and while loop, variable and array references) to instruction sequence in assembly.</li>
+            <li>Introduction to Operating Systems: purpose and responsibilities of an OS, system calls, kernel / user mode.</li>
+            <li>Program execution and scheduling: what is a process; process states; examination / demonstration of processes in a Unix system; basic introduction to concurrent process execution and context switching.</li>
+            <li>Memory management: the relationship between program execution and memory; program memory layout (stack, heap, etc.); memory allocation and deallocation.</li>
+            <li>File management & command line: using the command line for basic file and directory management, including manipulation of file permissions.</li>
+        </ul>
+    </p>
+
+    <h2>Course Policies and Grading Information</h2>
+
+    <h3>Grading Criteria</h3>
+
+    <p>Grading is based on multiple grading components, as detailed below:
+        <table style="border-collapse:collapse; max-width:800px;">
+            <caption>
+                Assignment categories, grade weights, and basic descriptions of assignments categories.
+            </caption>
+        <thead>
+            <tr>
+                <th scope="col">Component</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Exercises / Pre-Class Work</td>
+                <td>5%</td>
+                <td>Activities to be completed during / after class (e.g., assignments). Activities to be completed prior to class (e.g., pre-class video quizzes).</td>
+            </tr>
+            <tr>
+                <td>Labs</td>
+                <td>20%</td>
+                <td>Multiple lab assignments throughout the term. Usually one lab per two weeks.</td>
+            </tr>
+            <tr>
+                <td>Projects</td>
+                <td>10% each (total of 30%)</td>
+                <td>Multiple project assignments throughout the semester.</td>
+            </tr>
+            <tr>
+                <td>Quizzes</td>
+                <td>7.5% each (total of 45%)</td>
+                <td>Six quizzes distributed across the term, following module completion.</td>
+            </tr>
+        </tbody>
+        </table>
+
+    <i>All percentages shown are out of the overall course grade.</i>
+    </p>
+
+    <h3>Late Work</h3>
+    
+    <p>
+        Late submissions are allowed for assignments in the "Exercises" group within a 7 day grace period of the 
+        original deadline at no penalty. Assignment due dates are designed to align with the course content being 
+        taught, so staying on track is very important. Submissions outside of this window will receive half credit 
+        and will receive no feedback. Feedback on these assignments is one of the critical ways to understand your 
+        growth in the course, so the lack of feedback will heavily impact your ability to learn from assignments.<br><br>
+
+        For assignments in the "Lab" group, there is a 3 day grace period with no penalty. However, after this grace 
+        period, lab assignments will be zeroed out and can no longer be submitted. This is to encourage you to submit 
+        labs with enough time left to attend office hours to have your lab checked off by TAs.<br><br>
+
+        Additionally, you may no longer submit assignments the night before the exam or the end of the grace period, 
+        whichever is later. We still encourage you to practice and engage with assignments for your learning, but 
+        have this policy to encourage you not to wait this long for assignments.
+    </p>
+
+    <h3>Academic Integrity Policy</h3>
+
+    <p>Violations of academic integrity in this course consist of the following:
+        <ul>
+            <li>The unauthorized submission of Generative AI code, peer's answers, or other unauthorized sources on all assignments.</li>
+            <li>The submission of assignments from previous semesters and/or courses, regardless of whether or not the work is your own.</li>
+            <li>Unauthorized collaboration on summative assignments, such as Labs and Exams.</li>
+        </ul>
+
+    Penalties for the violation of academic integrity are subject to the following penalties, 
+    as determined by the instructor's discretion. One or multiple of the following may be applied:
+        <ul>
+            <li>Relevant Assignment(s) Receiving a Score of 0.</li>
+            <li>Drop or Change of Final Letter Grade.</li>
+            <li>Notification to Division of Student Affairs related to Academic Integrity.</li>
+        </ul>
+    </p>
+
+    <h2>Coursework</h2>
+
+    <h3>Course Workload & Structure</h3>
+
+    <p>In this course there will be pre-class work that will fall into the exercises category based upon videos 
+    / recordings of content prior to normal course meeting time. The expectation is that students watch 
+    the videos prior to attending weekly lectures, as well as complete any associated pre-class work to 
+    validate that they understand the content from the videos. Class structure will be as follows- 
+    weekly videos and pre-class work, a lecture with a practical demonstration of the work done in the videos, 
+    an in-class assignment to evaluate student understanding, a lab session to work or get help with lab assignments, 
+    and a quiz every three weeks based on the current progression of the course.</p>
+
+    <h3>Group Work</h3>
+
+    <p>In this course, <b>you may be asked to complete some in-class activities as part of a team.</b> 
+    Being able to work as part of a team is a very important component of your education and it is a 
+    skill that employers look for. For this reason, your cooperation is expected and appreciated.</p>
+
+    <h3>Lab Work</h3>
+
+    <p>
+    In this course, you will be asked to explain your lab assignments to an IA before receiving credit for the 
+    submitted lab. When a lab assignment is assigned, you will have <b>three weeks to (from the date of assignment)</b>
+    attend <u>any section’s IA office hours</u> or <u>your section’s lab time</u> and explain your code for validation 
+    that you did the assignment yourself and understand what you have submitted, <b>after submitting the lab 
+    assignment</b>. If you <b>resubmit</b> a lab assignment, <b>you must have it checked off again</b>. Only the most recent 
+    submission <b>before</b> the most recent check-off will be accepted.<br><br>
+    
+    The IA will ask you to explain your code and implementation of the lab problem to them, which they use 
+    to determine your level of understanding of your code and the lab material. <b>You must demonstrate 
+    understanding to the IA in order to receive full credit for the lab</b>. This is an evaluation that you 
+    understand what you submitted, NOT an evaluation of the code being correct, as that will factor into 
+    your lab grade as per usual assignment standards.<br><br>
+    
+    If you do not demonstrate understanding during this check, you are free to attempt to demonstrate 
+    understanding again in the same way as before, <b>but not on the same calendar day as another check for the
+    same lab</b>. You may request as many checks as you want within the two weeks, as long as <b>there is no more 
+    than one checkoff per lab assignment per day</b>.<br><br>
+    
+    Due to these constraints, we <b><u>highly</u></b> you to meet with the IAs early to demonstrate 
+    understanding, as IAs may be busy with personal matters, attending to other students, or 
+    generally unavailable close to the end of the two weeks.<br><br>
+    
+    If you receive a rating of "Developing Understanding, your lab grade will be halved 
+    from what your score would otherwise be.<br><br>
+
+    <b><u>Failure to meet with an IA within the time constraints will result in you receiving a zero for the lab.</u></b>
+
+    </p>
+
+    <h3>Quizzes</h3>
+
+    <p>Six in-class quizzes, all coding based with LockDown Browser. Each quiz can be retaken any number of times 
+        throughout the semester until reading day (April 30th) during the lab section. Upon retaking a quiz, 
+        the <b>current score will be updated to the most recent attempt- regardless of if that is an improvement 
+        or not</b>.<br><br>
+    
+        All quizzes have additional content on them that results in them containing 120% of the necessary points 
+        for the quiz. You cannot receive a score over 100% for a given quiz. This policy allows students to miss 
+        some quiz questions, while demonstrating knowledge on others, to still attain high marks. 
+        <u>That is to say, you do not need to get every question on an quiz correct to receive a 100%</u>.
+    </p>
+
+    <h3>Final Exam Period</h3>
+
+    <p>Instead of a final exam, the final exam time slot will be used to allow a student to retake any 
+        three quizzes they wish to as a final opportunity to demonstrate their knowledge. This is an 
+        optional opportunity and therefore students do not have to attend if they are content with 
+        their current grade standing.</p>
+
+    <p><mark>Please note that the contents of this document may change in order to address errors or to adjust for course progress.</mark></p>
+</main>
+
+</html>
