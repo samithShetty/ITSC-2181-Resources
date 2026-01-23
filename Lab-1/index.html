@@ -57,7 +57,7 @@
         <ul>
             <li>
                 <b>Registers</b>: Registers are small storage locations that each hold an 8-bit value, such as <code>00110011</code>.
-                This system has <b>4 registers</b>, numbered 0-3.
+                This system has <b>4 registers</b>, numbered 0-3. They will be referenced in instructions by the 2-bit representation of their number (e.g. Register 2 -> <code>10</code>).
             </li><br>
             <li>
                 <b>Memory</b>: Memory is a larger storage area than registers. Some instructions may read from memory or write to memory.
@@ -116,7 +116,7 @@
             <tr>
                 <td><code>001</code></td>
                 <td><b>OUT</b> (Write Output)</td>
-                <td>Write the contents of register <b><code>01</code></b> (Register #1) to <b>output</b>. (<code>s1</code> and <code>s2</code> ignored.)</td>
+                <td>Write the contents of Register #1 (<b><code>01</code></b>)  to <b>output</b>. (<code>s1</code> and <code>s2</code> ignored.)</td>
             </tr>
             <tr>
                 <td><code>010</code></td>
@@ -166,27 +166,27 @@
     <ul>
         <li>
             <code>00001000</code> &nbsp; <code>(000)(0)(10)(00)</code>:
-            Read input into register <code>10</code>.
+            Read input into Register 2.
         </li>
         <li>
             <code>00100000</code> &nbsp; <code>(001)(0)(00)(00)</code>:
-            Write register <code>01</code> (Register #1) to output. (Both register fields ignored.)
+            Write Register 1 to output. (Both register fields ignored.)
         </li>
         <li>
             <code>01010011</code> &nbsp; <code>(010)(1)(00)(11)</code>:
-            LOAD from memory address indicated by register <code>00</code> into register <code>11</code>.
+            LOAD from memory address indicated by Register 0 into Register 3.
         </li>
         <li>
             <code>01111001</code> &nbsp; <code>(011)(1)(10)(01)</code>:
-            STORE the value in register <code>10</code> into the memory address indicated by register <code>01</code>.
+            STORE the value in Register 2 into the memory address indicated by Register 1.
         </li>
         <li>
             <code>10001100</code> &nbsp; <code>(100)(0)(11)(00)</code>:
-            ADD: <code>R11 = R11 + R00</code>.
+            ADD: <code>R3 = R3 + R0</code>.
         </li>
         <li>
             <code>11000111</code> &nbsp; <code>(110)(0)(01)(11)</code>:
-            AND: <code>R01 = R01 AND R11</code>.
+            AND: <code>R1 = R1 AND R3</code>.
         </li>
     </ul>
     <h3>Questions</h3>
@@ -225,7 +225,7 @@
     <p>
         This program reads one value from input, one value from memory, adds them, and outputs the result.
         Assume the first input goes into register #0 and the second input goes into register #1.
-        Then we compute <code>R1 = R1 + R0</code>, copy the result into <code>R01</code>, and output it.
+        Then we compute <code>R1 = R1 + R0</code>, and output it.
     </p>
         
     <p><b>Note:</b> Register 3 holds the memory address of variable x.</p>
@@ -250,7 +250,7 @@
             <tr>
                 <td>2</td>
                 <td><mark>Q5.2:</mark></td>
-                <td>LOAD from memory address indicated<br> by register <code>11</code> into register <code>01</code>.</td>
+                <td>LOAD from memory address indicated<br> by Register 3 into Register 1.</td>
                 
             </tr>
             <tr>
@@ -262,7 +262,7 @@
             <tr>
                 <td>4</td>
                 <td><mark>Q5.4:</mark></td>
-                <td>Write register <code>01</code> to output.</td>
+                <td>Write Register 1 to output.</td>
                 
             </tr>
         </tbody>
