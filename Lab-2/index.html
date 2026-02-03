@@ -16,36 +16,26 @@
         <ul>
             <li>Practice reading documentation to understand software behavior</li>
             <li>Understanding the structure and execution flow of RISC-V assembly programs.</li>
-            <li>Proficiency with arithmetic and logic instructions (add, sub, addi, slli, srli, srai, and, or, xor).</li>
-            <li>Proficiency with loading and storing data from memory using lw and sw instructions.</li>
-            <li>Understanding bit-manipulations for numeric operations.</li>
+            <li>Proficiency with arithmetic, logic, and loading/storing instructions.</li>
+            <li>Understanding how bit-manipulation is used to perform mathematical operations.</li>
+            <li><strong>Understanding the practical constraints and capabilities of assembly instructions.</strong></li>
         </ul>
     </p>
 
     <h2>Lab Description</h2>
 
     <p>
-        In this lab, you will write RISC-V assembly programs using RARS. 
-        You will start by understanding an existing Hello World program, then progress through increasingly complex operations:
-        arithmetic and logic instructions, memory access with variables and arrays, and finally character manipulation.
-        <ul>
-            <li>You will gain hands-on experience with how high-level code translates to assembly instructions.</li>
-            <li>You will understand the practical constraints and capabilities of low-level operations.</li>
-            <li>You will practice the workflow of writing, testing, and debugging assembly code.</li>
-        </ul>
-    </p>
-
-    <p>
-        Each program should be clearly commented and submitted with answers to all conceptual questions.
+        In this lab, you will write RISC-V assembly programs using RARS (RISC-V Assembler and Runtime Simulator). 
+        You will start by understanding an existing Hello World program, then write increasingly complex programs of your own.
     </p>
 
     <h3>Submission Format</h3>
 
     <p>
-        For this lab, you will submit a single document (.txt, .pdf, or Word) containing:
+        For this lab, you will submit a single document (Word or .pdf) containing:
         <ul>
-            <li>Your answers to all conceptual questions, labeled by part and question number (e.g., "Part 2.1 Q1")</li>
-            <li>Screenshots of successfully executed assembly code</li>
+            <li>Screenshots of successfully executed assembly code for each Part/Program</li>
+            <li>Your answers to all conceptual questions, labeled by question number (e.g., "Q2.1.3")</li>
         </ul>
     </p>
 
@@ -219,7 +209,7 @@
     <p>
         Write a program that:
         <ul>
-            <li>Declares variables <code>x = 21</code>, <code>y = 81</code>, and <code>z</code> (uninitialized) in the <code>.data</code> section</li>
+            <li>Declares variables <code>x = 21</code>, <code>y = 81</code>, and <code>z</code> (uninitialized) in memory</li>
             <li>Loads <code>x</code> and <code>y</code> from memory into registers</li>
             <li>Computes <code>z = x + y</code></li>
             <li>Stores the result back into the memory location for <code>z</code></li>
@@ -262,12 +252,16 @@
     </p>
 
     <p>
-        <mark>Q3.1.1:</mark> After your program completes, check the Data Segment in RARS. What value is now stored in the memory location for <code>z</code>? Is it correct?
+        <mark>Q3.1.1:</mark> After your program completes, check the Data Segment in RARS. What value is now stored in the memory location for <code>z</code>? What instruction put it there?
     </p>
 
     <p>
         <mark>Q3.1.2:</mark> Why is it necessary to use the <code>la</code> (load address) instruction before using <code>lw</code> (load word)? 
         What information does <code>la</code> provide that <code>lw</code> needs?
+    </p>
+        
+    <p>
+        <mark>Q3.1.3:</mark> What would happen if you updated the register holding <code>z</code>'s value after storing to memory? Would this update the value in memory as well? Explain why or why not.
     </p>
 
     <h3>Program 3.2: Loading and Summing Array Elements</h3>
@@ -275,8 +269,8 @@
     <p>
         Write a program that:
         <ul>
-            <li>Declares an array <code>arr = [10, 11, 12, 13]</code> in the <code>.data</code> section</li>
-            <li>Declares a variable <code>sum</code> initialized to 0</li>
+            <li>Declares an array <code>arr = [10, 11, 12, 13]</code> in memory</li>
+            <li>Declares a variable <code>sum</code> initialized to 0 in memory</li>
             <li>Loads each element of the array, adds them together</li>
             <li>Stores the final sum into the <code>sum</code> variable</li>
         </ul>
@@ -314,14 +308,12 @@
     </p>
 
     <p>
-        <mark>Q3.2.1:</mark> Arrays in memory are stored contiguously with each word being 4 bytes. The offsets from the base address are 0, 4, 8, 12 for elements at indices 0, 1, 2, 3.
-        What would be the offset for the element at index 5 if the array had more elements? 
-        Explain why we multiply the index by 4 instead of just using the index directly.
+        <mark>Q3.2.1:</mark> After your program completes, check the Data Segment in RARS. What value is stored in <code>sum</code>?
     </p>
 
     <p>
-        <mark>Q3.2.2:</mark> After your program completes, check the Data Segment in RARS. What value is stored in the <code>sum</code> variable?
-        Verify that it is correct by adding 10 + 11 + 12 + 13 by hand.
+        <mark>Q3.2.2:</mark>How did you calculate the memory offset for each array element when loading them? 
+        How would this change if the array held <code>long</code> integers (8 bytes long) instead?
     </p>
 
     <hr>
@@ -335,10 +327,10 @@
     <p>
         Write a program that:
         <ul>
-            <li>Declares a string with your name in the <code>.data</code> section (e.g., <code>.asciz "Chris"</code>)</li>
-            <li>Declares a variable <code>i = 3</code> (the index to access)</li>
-            <li>Loads the index from memory</li>
-            <li>Loads the character at position <code>name[i]</code> from the string</li>
+            <li>Declares a string (array of characters) of your name in memory (e.g., <code>.asciz "Chris"</code>)</li>
+            <li>Declares a variable <code>i = 2</code> in memory</li>
+            <li>Loads <code>i</code> from memory</li>
+            <li>Loads the character at index <code>i</code> (i.e. <code>name[i]</code>) from the memory</li>
             <li>Prints that character to the console</li>
         </ul>
     </p>
@@ -364,17 +356,17 @@
     </p>
 
     <p>
-        <mark>Q4.1.2:</mark> What character was printed by your program? Verify that it is the correct character from your name at index 3.
+        <mark>Q4.1.2:</mark> What character was printed by your program? Verify that it is the correct character from your name at index 2. Why isn't this the second character?
     </p>
 
     <p>
-        <mark>Q4.1.3:</mark> Did you need to you need to multiply the index in this example? Why or why not? 
-        What instruction would you have needed to add to your program to index the array of standard (4-byte) integers?   
+        <mark>Q4.1.3:</mark> Did you need to you need to multiply the index to calculate the byte offset in this example? Why or why not? 
+        What exact instruction would you have needed to add to your program if your array held integers instead? Where would this instruction go?   
         <i>Hint: Think about calculating the offset</i>
     </p>
 
     <p>
-        <mark>Q4.1.4 (Bonus):</mark> What would happen if you set i = 0? What character would be printed? 
+        <mark>Q4.1.4 (Bonus):</mark> What would happen if you initialized i = 0? What character would be printed? 
         What if you set i to a value larger than the length of your name, or a negative value? Why might this be dangerous?
     </p>
 
