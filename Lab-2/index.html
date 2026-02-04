@@ -63,7 +63,15 @@
     <h3>Part 1 Conceptual Questions</h3>
 
     <p>
-        <b>Q1.1:</b> In the Hello World program, the register <code>a7</code> is set to different values at different points in the program (e.g., first to 64, then to 93). 
+        <mark>Q1.1:</mark> In the Hello World program, notice the lines using the <code>li</code> (psuedo) instruction. What are these lines doing? 
+        How could this be accomplished using a real instruction that we've studied?  
+        <br/>
+        <i>Note: You won't be allowed to use pseudo-instructions such as <code>li</code> for your programs in this class.</i>
+
+    </p>
+
+    <p>
+        <mark>Q1.2:</mark> In the Hello World program, the register <code>a7</code> is set to different values at different points in the program (e.g., first to 64, then to 93). 
         Why is <code>a7</code> set multiple times, and what does each value tell the system to do?
     </p>
 
@@ -90,6 +98,11 @@
 
     <p>
         After computing the result, print the value of <code>x</code> to the console. (Hint: use <code>ecall</code> with <code>a7 = 1</code> to print an integer.)
+    </p>
+    
+    <p>
+        <b>Important:</b> You cannot use pseudo-instructions such as <code>li</code> for your programs.
+        Use the real instructions that we have discussed in class.
     </p>
 
     <p>
@@ -139,14 +152,17 @@
     </p>
 
     <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+    
+        <p>
+            After computing the result, print the value of <code>z</code> to the console.
+        </p>
 
     <p>
-        <b>Important:</b> You cannot use the <code>NOT</code> pseudo-instruction. You must implement NOT using one of the logical instructions: <code>and</code>, <code>or</code>, or <code>xor</code>.
-        <b>Hint:</b> Which logical instruction flips 0s to 1s and 1s to 0s? (Try drawing a truth table if needed.)
+        <b>Important:</b> You cannot use pseudo-instructions such as <code>li</code> or <strong><code>NOT</code></strong>. You must implement NOT using one of the logical instructions: <code>and</code>, <code>or</code>, or <code>xor</code>.
     </p>
 
     <p>
-        After computing the result, print the value of <code>z</code> to the console.
+        <b>Hint:</b> Which logical instruction flips 0s to 1s and 1s to 0s? (Try drawing a truth table if needed.)
     </p>
 
     <p>
