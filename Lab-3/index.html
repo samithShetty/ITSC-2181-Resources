@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Lab 1</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+</head>
+
+<main>
+
+    <h1>Module 6, Unit 3 Lab</h1>
+    <p style="max-width:960px; word-wrap:break-word;">This lab covers the utilization of the following items in RISC-V assembly:
+        <ul>
+            <li>Loops created using branching statements.</li>
+            <li>Conditionals created using branching statements.</li>
+            <li>Utilization of ecall to print to console.</li>
+        </ul>
+    </p>
+    <h2>Lab Description</h2>
+    <p style="max-width:960px; word-wrap:break-word;">
+        In this lab, we will write a short program using RISC-V assembly to modify a string stored in memory. 
+        Specifically, we want to change the case of all letters, making lower case letters uppercase, and 
+        upper case letters lowercase. We will do this by manipulating the ASCII encoding of each letter. 
+    </p>
+    <p style="max-width:960px; word-wrap:break-word;">
+        Below is an ASCII table, which shows how each character (like in C) is encoded as a interger value 
+        in the system. In this example, only the first 128 characters are shown.
+    </p>
+        <img src="./ASCII-Table-wide.svg.png" width=960 alt="An image representation of an ASCII Table. Textual description is provided below, describing important elements.">
+    <p style="max-width:960px; word-wrap:break-word;">
+        The most important values to see in this table are 0 (which represents the null character, or stop 
+        character we are familiar with from C, "\0"), 65 (capital "A"), 90 (capital "Z"), 97 (lowercase 
+        "a"), and 122 (lowercase "z"). In each range, letters are listed in order and ascending.
+    </p>
+    <p style="max-width:960px; word-wrap:break-word;">
+        In order to swap the case of the letters for this lab, you'll have to change the interger representation 
+        (for example, 65 for capital "A") to the corresponding representation for the other case (97 for 
+        lowercase "a")
+    </p>
+    <code>
+    addi x1, x2, x3
+    </code>
+
+
+</main>
+
+</html>
