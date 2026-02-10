@@ -1,1 +1,126 @@
-a
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RISC-V Reference Sheet</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+<main>
+
+    <h1>RISC-V Base Integer Instructions</h1>
+
+    <p>
+        This page reproduces the reference content shown in the provided image as accessible HTML tables.
+        Tables include captions, column headers, and scoped header cells for screen readers.
+    </p>
+
+    <h2>Base Integer Instructions</h2>
+
+    <table>
+        <caption>RISC-V base integer instruction reference (mnemonic, name, semantics, and notes).</caption>
+        <thead>
+            <tr>
+                <th scope="col">Inst</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><th scope="row">add</th><td>ADD</td><td>R[rd] = R[rs1] + R[rs2]</td><td></td></tr>
+            <tr><th scope="row">sub</th><td>SUB</td><td>R[rd] = R[rs1] - R[rs2]</td><td></td></tr>
+            <tr><th scope="row">xor</th><td>XOR</td><td>R[rd] = R[rs1] ^ R[rs2]</td><td></td></tr>
+            <tr><th scope="row">or</th><td>OR</td><td>R[rd] = R[rs1] | R[rs2]</td><td></td></tr>
+            <tr><th scope="row">and</th><td>AND</td><td>R[rd] = R[rs1] &amp; R[rs2]</td><td></td></tr>
+            <tr><th scope="row">sll</th><td>Shift Left Logical</td><td>R[rd] = R[rs1] &lt;&lt; R[rs2]</td><td></td></tr>
+            <tr><th scope="row">srl</th><td>Shift Right Logical</td><td>R[rd] = R[rs1] &gt;&gt; R[rs2]</td><td></td></tr>
+            <tr><th scope="row">sra</th><td>Shift Right Arith*</td><td>R[rd] = R[rs1] &gt;&gt; R[rs2]</td><td>sign-extends</td></tr>
+            <tr><th scope="row">slt</th><td>Set Less Than</td><td>R[rd] = (rs1 &lt; rs2)?1:0</td><td></td></tr>
+
+            <tr><th scope="row">addi</th><td>ADD Immediate</td><td>R[rd] = R[rs1] + SE(imm)</td><td></td></tr>
+            <tr><th scope="row">xori</th><td>XOR Immediate</td><td>R[rd] = R[rs1] ^ SE(imm)</td><td></td></tr>
+            <tr><th scope="row">ori</th><td>OR Immediate</td><td>R[rd] = R[rs1] | SE(imm)</td><td></td></tr>
+            <tr><th scope="row">andi</th><td>AND Immediate</td><td>R[rd] = R[rs1] &amp; SE(imm)</td><td></td></tr>
+            <tr><th scope="row">slli</th><td>Shift Left Logical Imm</td><td>R[rd] = R[rs1] &lt;&lt; imm[4:0]</td><td></td></tr>
+            <tr><th scope="row">srli</th><td>Shift Right Logical Imm</td><td>R[rd] = R[rs1] &gt;&gt; imm[4:0]</td><td></td></tr>
+            <tr><th scope="row">srai</th><td>Shift Right Arith Imm</td><td>R[rd] = R[rs1] &gt;&gt; imm[4:0]</td><td>sign-extends</td></tr>
+
+            <tr><th scope="row">lw</th><td>Load Word</td><td>R[rd] = M[R[rs1] + SE(imm)]</td><td></td></tr>
+            <tr><th scope="row">sw</th><td>Store Word</td><td>M[R[rs1] + SE(imm)] = R[rs2]</td><td></td></tr>
+
+            <tr><th scope="row">beq</th><td>Branch ==</td><td>if (rs1 == rs2) PC += SE(imm) &lt;&lt; 1</td><td></td></tr>
+            <tr><th scope="row">bne</th><td>Branch !=</td><td>if (rs1 != rs2) PC += SE(imm) &lt;&lt; 1</td><td></td></tr>
+            <tr><th scope="row">blt</th><td>Branch &lt;</td><td>if (rs1 &lt; rs2) PC += SE(imm) &lt;&lt; 1</td><td></td></tr>
+            <tr><th scope="row">bge</th><td>Branch &gt;=</td><td>if (rs1 &gt;= rs2) PC += SE(imm) &lt;&lt; 1</td><td></td></tr>
+
+            <tr><th scope="row">jal</th><td>Jump And Link</td><td>R[rd] = PC+4; PC += SE(imm) &lt;&lt; 1</td><td></td></tr>
+            <tr><th scope="row">jalr</th><td>Jump And Link Reg</td><td>R[rd] = PC+4; PC = R[rs1] + SE(imm)</td><td></td></tr>
+
+            <tr><th scope="row">lui</th><td>Load Upper Imm</td><td>R[rd] = SE(imm) &lt;&lt; 12</td><td></td></tr>
+            <tr><th scope="row">auipc</th><td>Add Upper Imm to PC</td><td>R[rd] = PC + (SE(imm) &lt;&lt; 12)</td><td></td></tr>
+
+            <tr><th scope="row">csrrw</th><td>CSR read &amp; write</td><td>R[rd] = CSRs[csr]; CSRs[csr] = R[rs1]</td><td></td></tr>
+            <tr><th scope="row">csrrs</th><td>CSR read &amp; set</td><td>R[rd] = CSRs[csr]; CSRs[csr] = CSRs[csr] | R[rs1]</td><td></td></tr>
+            <tr><th scope="row">csrrc</th><td>CSR read &amp; clear</td><td>R[rd] = CSRs[csr]; CSRs[csr] = CSRs[csr] &amp; ~R[rs1]</td><td></td></tr>
+
+            <tr><th scope="row">ecall</th><td>Environment Call</td><td>Transfer control to OS</td><td></td></tr>
+            <tr><th scope="row">ebreak</th><td>Environment Break</td><td>Transfer control to debugger</td><td></td></tr>
+        </tbody>
+    </table>
+
+    <h2>Registers</h2>
+
+    <table>
+        <caption>RISC-V integer registers (ABI names), descriptions, and caller/callee-save convention.</caption>
+        <thead>
+            <tr>
+                <th scope="col">Register</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Saver</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><th scope="row">x0</th><td>zero</td><td>Zero constant</td><td>—</td></tr>
+            <tr><th scope="row">x1</th><td>ra</td><td>Return address</td><td>Caller</td></tr>
+            <tr><th scope="row">x2</th><td>sp</td><td>Stack pointer</td><td>Callee</td></tr>
+            <tr><th scope="row">x3</th><td>gp</td><td>Global pointer</td><td>—</td></tr>
+            <tr><th scope="row">x4</th><td>tp</td><td>Thread pointer</td><td>—</td></tr>
+            <tr><th scope="row">x5–x7</th><td>t0–t2</td><td>Temporaries</td><td>Caller</td></tr>
+            <tr><th scope="row">x8</th><td>s0 / fp</td><td>Saved / frame pointer</td><td>Callee</td></tr>
+            <tr><th scope="row">x9</th><td>s1</td><td>Saved register</td><td>Callee</td></tr>
+            <tr><th scope="row">x10–x11</th><td>a0–a1</td><td>Fn args / return values</td><td>Caller</td></tr>
+            <tr><th scope="row">x12–x17</th><td>a2–a7</td><td>Fn args</td><td>Caller</td></tr>
+            <tr><th scope="row">x18–x27</th><td>s2–s11</td><td>Saved registers</td><td>Callee</td></tr>
+            <tr><th scope="row">x28–x30</th><td>t3–t5</td><td>Temporaries</td><td>Caller</td></tr>
+            <tr><th scope="row">x31</th><td>t6</td><td>Temporary</td><td>Caller</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Memory Allocation</h2>
+
+    <table>
+        <caption>Typical RARS memory layout shown in the reference image (addresses and segment direction).</caption>
+        <thead>
+            <tr>
+                <th scope="col">Marker</th>
+                <th scope="col">Address</th>
+                <th scope="col">Region</th>
+                <th scope="col">Growth direction (as depicted)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><th scope="row">SP →</th><td>0xFFFF FFF0</td><td>Stack</td><td>↓ (toward lower addresses)</td></tr>
+            <tr><th scope="row"></th><td></td><td>Dynamic Data</td><td>↑ (toward higher addresses)</td></tr>
+            <tr><th scope="row"></th><td>0x1000 0000</td><td>Static Data</td><td>—</td></tr>
+            <tr><th scope="row">PC →</th><td>0x0040 0000</td><td>Text</td><td>—</td></tr>
+            <tr><th scope="row"></th><td></td><td>Reserved</td><td>—</td></tr>
+        </tbody>
+    </table>
+
+</main>
+
+</html>
