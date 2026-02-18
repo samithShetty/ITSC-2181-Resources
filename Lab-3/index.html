@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 
-
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ITSC 2181 - Lab 3</title>
         <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
-</head>
+    </head>
 
 <main>
 
@@ -48,18 +47,18 @@
     <p style="max-width:960px; word-wrap:break-word;">
         The most important values to see in this table are 0 (which represents the null character, or stop 
         character, "\0"), 65 (capital "A"), 90 (capital "Z"), 97 (lowercase 
-        "a"), and 122 (lowercase "z"). In each range, letters are listed in order and ascending. If you'd like further referece, 
+        "a"), and 122 (lowercase "z"). In each range, letters are listed in order and ascending. If you'd like further reference, 
         please check out the <a href="https://theasciicode.com.ar/ascii-codes.txt"> plain text ascii table </a>.
     </p>
 
     <p>
-        Additionally, for your reference: <b>all strings in assembly always end in the stop character "\0", even though it isn't show to you as part of the string.</b>
+        Additionally, for your reference: <b>all strings in assembly always end in the stop character "\0", even though it isn't shown to you as part of the string.</b>
         As you work on this lab, remember that the finding the character "\0" (ASCII code 0) means the string is over.
     </p>
 
     <h3>Part 1 Conceptual Questions</h3>
     <p>
-        <mark>Q1.1</mark>: Given that ASCII characters are represented with a two digit hexidecimal value, home many ASCII 
+        <mark>Q1.1</mark>: Given that ASCII characters are represented with a two digit hexadecimal value, how many ASCII 
         characters can be represented with this format?<br/>
         <mark>Q1.2</mark>: ASCII is referred to as a "character encoding standard". On your own, find and briefly describe at 
         least two (2) other character encoding standards.<br/>
@@ -72,29 +71,33 @@
         change them freely in the arguments under the label main.
     </p>
     <code>
-    # These are your test cases, make sure each work with your solution<br>
-    .data <br>
-    str1: .string "UnC ChaRloTtE" <br>
-    str2: .string "I LoVe RISC-V" <br>
-    str3: .string "O_0" <br><br><br>
+    # These are your test cases, make sure each work with your solution<br/>
+    .data <br/>
+    str1: .string "UnC ChaRloTtE" <br/>
+    str2: .string "I LoVe RISC-V" <br/>
+    str3: .string "O_0" <br/><br/><br/>
 
 
-    .text <br>
-    main: <br>
-        la a0, str3 # <--- swap out the label to test different strings <br>
-        addi t0, a0, 0 <br><br>
+    .text <br/>
+    main: <br/>
+        la a0, str3 # <--- swap out the label to test different strings <br/>
+        addi t0, a0, 0 <br/><br/>
         
-# <mark>TODO:</mark> Implement your solution here<br>
+# <mark>TODO:</mark> Implement your solution here<br/>
     </code>
 
     <p>As a reminder: remember that characters are saved as 8-bit integers; you'll be loading individual bytes. If you don't remember how to do this, check the 
      <a href="https://en.wikipedia.org/wiki/RISC-V_instruction_listings"> RISC-V instructions reference sheet</a>.</p>
+     <i>You don't need to start implementing your solution yet. We'll build it up with each part of the lab</i> <br/>
 
     <h3>Part 2 Conceptual Questions</h3>
     <p>
-        <mark>Q2.1</mark>: Case-Swap the first string (str1) yourself, and put it as your answer here. <br/>
-        <mark>Q2.2</mark>: Case-Swap the second string (str2) yourself, and put it as your answer here. <br/>
-        <mark>Q2.3</mark>: Case-Swap the third string (str3) yourself, and put it as your answer here. Pay close attention to what are letters vs. other characters. <br/>
+        <i>Note: <b>Case Swapping</b> means changing upper case letters to lower case and vice-versa. Non-letter characters (like numbers or underscores) are unchanged.</i>
+    </p>
+    <p>
+        <mark>Q2.1</mark>: Manually Case-Swap the first string (str1) yourself, and put it as your answer here. <br/>
+        <mark>Q2.2</mark>: Manually Case-Swap the second string (str2) yourself, and put it as your answer here. <br/>
+        <mark>Q2.3</mark>: Manually Case-Swap the third string (str3) yourself, and put it as your answer here. Pay close attention to what are letters vs. other characters. <br/>
     </p>
 
     <h2>Part 3: Print Your String</h2>
@@ -132,7 +135,7 @@
     <h2>Part 5: Case Swap</h2>
 
     <p>
-        In order to swap the case of the letters for this lab, you'll have to change the interger representation 
+        In order to swap the case of the letters for this lab, you'll have to change the integer representation 
         (for example, 65 for capital "A") to the corresponding representation for the other case (97 for 
         lowercase "a")
     </p>
@@ -168,3 +171,6 @@
         pseudocode). Write code, in that language, that achieves the same goal as the code here.<br/>
         <mark>Q5.4</mark>: Now that you've written that other version, how different are they, and which is longer?<br/>
     </p>
+
+</main>
+</html>
