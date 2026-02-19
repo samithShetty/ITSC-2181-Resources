@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Project 1</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+    <body>
+        <main>
+
+            <h1>Project 1: Convolution in RISC-V Assembly</h1>
+
+            <p>This project covers the practical application of the following concepts in RISC-V assembly:</p>
+            <ul>
+                <li>Register manipulation and data loading/storing with arrays.</li>
+                <li>Control flow with loops and branching.</li>
+                <li>Translating high-level algorithms to assembly language.</li>
+            </ul>
+
+            <h2>Project Description</h2>
+
+            <p>In this project, you will implement a simple 1-D <a href="https://en.wikipedia.org/wiki/Convolution">convolution</a> on an array of integers. You will first develop the algorithm in a high-level programming language of your choice, and then translate it to RISC-V assembly, and finally provide a write-up explaining your implementation.</p>
+
+            <h2>Algorithm Overview</h2>
+
+            <p>Here is a basic pseudocode outline of the convolution algorithm you will implement:</p>
+            <pre><code>
+                
+            Array_A --> {0,5,2,9,6,7,1} // Input array of fixed size N, initialized to random values
+            Array_B --> {0,0,0,0,0,0,0} // Output array of fixed size N, initialized to zeros
+
+            for i from 0 to N-1 do:
+                sum = A[i]
+                if i > 0 then:
+                    sum = sum + A[i-1] // Add left neighbor if it exists
+                if i < N-1 then:
+                    sum = sum + A[i+1] // Add right neighbor if it exists
+                B[i] = sum / 3 // Each element in B is just the average of the corresponsing element in A and its neighbors
+            
+            Print Array_A // Output the original array
+            Print Array_B // Output the convolved array
+            </code></pre>
+
+            This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
+            The first and last elements are treated differently since they each only have one neighbor.
+
+            <h2>Part 1: High-Level Implementation</h2>
+
+            <p>Implement the convolution algorithm in a high-level language of your choice (e.g., C, Python, Java). Your code should:</p>
+            <ul>
+                <li>Define input array A and output array B.</li>
+                <li>Use a loop to compute the convolution for each element in the array.</li>
+                <li>Handle edge cases (e.g. the first and last elements).</li>
+                <li>Print the input and output arrays for verification.</li>
+            </ul>
+
+            <h2>Part 2: RISC-V Assembly Implementation</h2>
+
+            <p>Translate your high-level algorithm into RISC-V assembly. Your assembly program should:</p>
+            <ul>
+                <li>Initialize the input and output arrays in memory.</li>
+                <li>Implement a loop using branching instructions</li>
+                <li>Sum and take the average for each index with its neighbors <i>(Note: You are allowed to use the <code>div</code> pseudo-instruction for this Project).</i></li>
+                <li>Use branching instructions to handle the edge-cases.</li>
+                <li>Store results in the output array.</li>
+            </ul>
+
+            <h2>Part 3: Write-Up</h2>
+
+            <p>Write a short explanation (1-2 paragraphs) covering:</p>
+            <ul>
+                <li>Your algorithm design, including how you are handling edge cases.</li>
+                <li>Key differences between the high-level and assembly implementations.</li>
+                <li>Any challenges faced during translation and how you addressed them.</li>
+            </ul>
+
+            <h2>Submission Format</h2>
+
+            <p>For this project, you will submit a single document (Word or PDF) containing:</p>
+            <ul>
+                <li>Your complete high-level code.</li>
+                <li>Your complete RISC-V assembly code.</li>
+                <li>Screenshots of at least three (3) successful test runs with different input arrays (showing input, output, and any intermediate steps).</li>
+                <li>Your 1-2 paragraph write-up explaining the code and design decisions.</li>
+            </ul>
+
+            <h2>Grading Rubric</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Points</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>High-Level Implementation</td>
+                        <td>30</td>
+                        <td>Correct convolution logic, edge-case handling, and output.</td>
+                    </tr>
+                    <tr>
+                        <td>RISC-V Assembly</td>
+                        <td>40</td>
+                        <td>Accurate translation, proper register usage, loop implementation, and comments.</td>
+                    </tr>
+                    <tr>
+                        <td>Write-Up</td>
+                        <td>20</td>
+                        <td>Clear explanation of algorithm, design choices, and challenges.</td>
+                    </tr>
+                    <tr>
+                        <td>Testing and Submission</td>
+                        <td>10</td>
+                        <td>Screenshots of test runs and proper document formatting.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </main>
+    </body>
+</html>
