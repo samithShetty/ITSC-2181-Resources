@@ -28,24 +28,24 @@
 
             <p>Here is a basic pseudocode outline of the convolution algorithm you will implement:</p>
             <pre><code>
-                
-            Array_A --> {0,5,2,9,6,7,1} // Input array of fixed size N, initialized to random values
-            Array_B --> {0,0,0,0,0,0,0} // Output array of fixed size N, initialized to zeros
+Array_A --> {0,5,2,9,6,7,1} // Input array of fixed size N, initialized to random values
+Array_B --> {0,0,0,0,0,0,0} // Output array of fixed size N, initialized to zeros
 
-            for i from 0 to N-1 do:
-                sum = A[i]
-                if i > 0 then:
-                    sum = sum + A[i-1] // Add left neighbor if it exists
-                if i < N-1 then:
-                    sum = sum + A[i+1] // Add right neighbor if it exists
-                B[i] = sum / 3 // Each element in B is just the average of the corresponsing element in A and its neighbors
+for i from 0 to N-1 do:
+    sum = A[i]
+    if i > 0 then:
+        sum = sum + A[i-1] // Add left neighbor if it exists
+    if i < N-1 then:
+        sum = sum + A[i+1] // Add right neighbor if it exists
+    B[i] = sum / 3 // Each element in B is just the average of the corresponsing element in A and its neighbors
             
             Print Array_A // Output the original array
             Print Array_B // Output the convolved array
             </code></pre>
-
-            This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
-            The first and last elements are treated differently since they each only have one neighbor.
+            <p>
+                This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
+                The first and last elements are treated differently since they each only have one neighbor.
+            </p>
 
             <h2>Part 1: High-Level Implementation</h2>
 
