@@ -27,7 +27,7 @@
 
             <h2>Algorithm Overview</h2>
 
-            <p>Here is a basic pseudocode outline of the convolution algorithm you will implement:</p>
+            <p>First, here is the basic pseudocode outline of the convolution algorithm you will implement:</p>
             <pre><code>
 <b>A = {[initial array values]}</b>    // Input array of fixed size N, initialized to random values
 <b>B = {0,0,0,...}</b>                 // Output array of fixed size N, initialized to zeros
@@ -45,8 +45,10 @@
             </code></pre>
             <p>
                 This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
-                The first and last elements are treated differently since they each only have one neighbor.
+                Notice how since the first and last elements are each missing a neighbor, we have to check before we try accessing the data before/after the current element in the array.
             </p>
+            <img src="/ITSC-2181-Resources/Project-1/convolution-example.png" width=960 alt="A visual representation of the first example array input (listed below) being transformed. Array elements are shown as boxes with height corresponding to their value. The input array appears spiky with high peaks and low valleys, whereas the output is relatively smoother and level">
+    <p style="max-width:960px; word-wrap:break-word;">
             <h3>Examples</h3>
             <code>
                 <ul>
