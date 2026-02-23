@@ -27,6 +27,26 @@
 
             <h2>Algorithm Overview</h2>
 
+            <h3>What is convolution?</h3>
+
+            Convolution is a special type of computing process and algorithm that works to "smooth" a set of input values out. Convolution 
+            is frequently used in areas such as signal and image processing, where we might care about the general data within a signal or 
+            an image, but don't want to get hung up on the specifics. This is achieved by creating a new version of the signal, image, or 
+            other data, where each value is defined by some "convolution" of how that particular component was defined in the previous bit 
+            of data.</br><br>
+
+            A good example of this process is gaussian blurring, which involves allowing one pixel to be averaged with the other pixels 
+            around it. If a blue pixel is surrounded by other blue pixels and some red pixels, after convolution, it will be some shade of 
+            purple, as the other pixels' colors bleed into it. If we instead imagine a convolution applied to a signal, you might imagine a 
+            very high peak surrounded by low areas in the signal; after convolution, the peak is lower, pulled down by the surrounding low areas, 
+            while the low areas are pulled up a bit, influenced by the peak. We demonstrate some of these, and the algorithms for doing so, below.</br></br>
+
+            If you would like additional examples or references, check out this <a href="https://betterexplained.com/articles/intuitive-convolution/"> 
+                intuitive explanation of convolution
+            </a>.
+
+            <h3>Algorithm</h3>
+            
             <p>First, here is the basic pseudocode outline of the convolution algorithm you will implement:</p>
             <pre><code>
 <b>A = {[initial array values]}</b>    // Input array of fixed size N, initialized to random values
