@@ -15,6 +15,7 @@
 
             <p>This project covers the practical application of the following concepts in RISC-V assembly:</p>
             <ul>
+                <li>Understanding the load-pattern of RISC-V Assembly</li>
                 <li>Register manipulation and data loading/storing with arrays.</li>
                 <li>Control flow with loops and branching.</li>
                 <li>Translating high-level algorithms to assembly language.</li>
@@ -28,24 +29,33 @@
 
             <p>Here is a basic pseudocode outline of the convolution algorithm you will implement:</p>
             <pre><code>
-A = {0,5,2,9,6,7,1}         // Input array of fixed size N, initialized to random values
-B = {0,0,0,0,0,0,0}         // Output array of fixed size N, initialized to zeros
+<b>A = {[initial array values]}</b>    // Input array of fixed size N, initialized to random values
+<b>B = {0,0,0,...}</b>                 // Output array of fixed size N, initialized to zeros
 
-for i from 0 to N-1 do:
-    sum = A[i]
-    if i > 0 then:
-        sum = sum + A[i-1]  // Add left neighbor if it exists
-    if i < N-1 then:
-        sum = sum + A[i+1]  // Add right neighbor if it exists
-    B[i] = sum / 3          // Each element in B is just the average of the corresponsing element in A and its neighbors
+<b>for i from 0 to N-1 do:</b>
+    <b>sum = A[i]</b>
+    <b>if i > 0 then:</b>
+        <b>sum = sum + A[i-1]</b>      // Add left neighbor if it exists
+    <b>if i < N-1 then:</b>
+        <b>sum = sum + A[i+1]</b>      // Add right neighbor if it exists
+    <b>B[i] = sum / 3</b>              // Each element in B is just the average of the corresponsing element in A and its neighbors
             
-Print Array_A               // Output the original array
-Print Array_B               // Output the convolved array
+<b>Print Array_A</b>                   // Output the original array
+<b>Print Array_B</b>                   // Output the convolved array
             </code></pre>
             <p>
                 This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
                 The first and last elements are treated differently since they each only have one neighbor.
             </p>
+            <h3>Examples</h3>
+            <code>
+                <ul>
+                    <li><pre>[4, 2, 8, 7, 3, 9, 1, 6]       ---> [2, 4, 5, 6, 6, 4, 5, 2]</pre></li>
+                    <li><pre>[1, 1, 1, 1, 1]                ---> [0, 1, 1, 1, 0]</pre></li>
+                    <li><pre>[180, 54, 70, 32, 100, 4, 90]  ---> [78, 101, 52, 67, 45, 64, 31]</pre></li>
+               </ul>
+
+            </code>
 
             <h2>Part 1: High-Level Implementation</h2>
 
@@ -100,7 +110,7 @@ Print Array_B               // Output the convolved array
                 <tbody>
                     <tr>
                         <td>High-Level Implementation</td>
-                        <td>30</td>
+                        <td>20</td>
                         <td>Correct convolution logic, edge-case handling, and output.</td>
                     </tr>
                     <tr>
@@ -110,7 +120,7 @@ Print Array_B               // Output the convolved array
                     </tr>
                     <tr>
                         <td>Write-Up</td>
-                        <td>20</td>
+                        <td>30</td>
                         <td>Clear explanation of algorithm, design choices, and challenges.</td>
                     </tr>
                     <tr>
