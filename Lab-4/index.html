@@ -16,7 +16,7 @@
         <ul>
             <li>Setting up and navigating a command line interface.</li>
             <li>Compiling and running C code.</li>
-            <li>Understanding how C code compiles to Assembly</li>
+            <li>Understanding how C code compiles to assembly code.</li>
         </ul>
     </p>
     
@@ -40,40 +40,64 @@
     <h2>Part 1: Setting Up Your Environment</h2>
     <h3>Command Line Interface</h3>
     <h4>Windows</h4>
-    <p>
+    
+        <p>
         Follow all of the installation instructions in the <a href="https://www.msys2.org/">MSYS2 Getting Started Page</a> to install MSYS2 and gcc on your machine. <br/>
         This will provide a UNIX-like environment where you can run terminal commands that are native to Linux/Mac and compile/run C code.
         <br/>
         <br/>
+    </p>
+    <p>
         <i>
             <b>Note:</b> You may opt to use an alternative environment such as WSL (Windows Subsystem for Linux) if you prefer. 
             You are allowed to do so for the purposes of our class. We encourage you to take ownership, explore your machine, and set up your environment how you see fit.
             The requirement is that you are ultimately able to compile and run code via the command-line via <code>gcc</code> and can run UNIX instructions.
         </i>
     </p>
+    <p> Please note: Depending on the setup you choose, your files may not be located in your usual system folders; please take time to familiarize yourself with the location of the filesystem 
+        you'll be interacting with. By default, the install path for <code>home</code> will be <code>C:\msys64\home\username</code>.
+
     <h4>MacOS</h4>
-    <p>
+        <p> For MacOS users, your system already operates using a UNIX environment, meaning you'll be able to perform all commands natively. This only leaves installing gcc, which can be done
+        as follows:</p>
         <ol>
             <li>Press Command + Space, search for "Terminal" and hit enter to open your built-in terminal</li>
             <li>Go to the <a href="https://brew.sh/">brew homepage</a> and copy-paste the command under "Install Homebrew" into your terminal. Hit Enter to run it if it doesn't already automatically.</li>
             <li>After Homebrew is installed, you can install gcc using the following command: <code>brew install gcc</code></li>
         </ol>
-    </p>
-    <h4>Linux</h4>
-    <p>
-        <ul><li>Install gcc using your distribution's package manager, e.g.:
-            <ul>
-                <li>For Ubuntu/Debian: <code>sudo apt install build-essential</code></li>
-                <li>For Arch: <code>sudo pacman -S gcc</code></li>
-            </ul>  
-        </li>
-    </ul>
-    </p>
+    
+            <p>Additionally, as we play around with utilizing bash commands, please be wary of your system! Since we'll be doing things on your main system, make sure you keep things clean and organized.</p>
 
-    <h3>VS Code Setup</h3>
+    <h4>Linux</h4>
+        <p>Congratulations, you are already running in a UNIX-like environment! This means you won't need to go through nearly as much headache to get setup for class.
+            The only step you need to tackle is to install gcc using your distribution's package manager, e.g.:</p>
+            <ul>
+                <li>For Ubuntu/Debian: <code>apt install build-essential</code></li>
+                <li>For Arch: <code>pacman -S gcc</code></li>
+            </ul> 
+        <p>Depending on the configuration of your system, you may need to utilize <code>sudo</code> to actually install the package.</p>
+
+        <p>Additionally, as we play around with utilizing bash commands, please be wary of your system! Since we'll be doing things on your main system, make sure you keep things clean and organized.</p>
+
+    <h3 id="vscode-setup">VS Code Setup</h3>
+
     <p>
         You may install VS Code on your machine using your package manager or by downloading it from the <a href="https://code.visualstudio.com/download">VS Code Download Page</a>.
     </p>
+
+    <p>Alternatively, you can <a href="https://vscodium.com/">install VSCodium</a>, which is a free and open source fork of VS Code. This means it doesn't have Microsoft additions (such as AI!). 
+    It also has fewer tracking components, increasing security and privacy.</p>
+
+    <h4>Installation Options</h4>
+
+    <h5>Windows</h5>
+
+    <p>If you are on a Windows system, you will need to use either of the links provided above in the <a href="#vscode-setup">VS Code Setup Section</a> to download your choice of IDE.</p>
+
+    <h5>MacOS/Linux</h5>
+
+    <p>For everyone else, this is a great opportunity to learn how to use your local package manager! If you are on MacOS, this is <code>homebrew</code>, while Linux users have a 
+    range of potential package managers. Take this opportunity to search how to install your choice using your package manager!</p>
 
     <h2>Part 2: Command Line Hacker</h2>
     <p>
