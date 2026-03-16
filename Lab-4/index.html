@@ -12,13 +12,12 @@
 
     <h1>Module 4 Lab: Command Line and C Programming</h1>
 
-    <p>This lab covers the utilization of the following items in RISC-V assembly:
+    <p>This lab covers the utilization of the following items in RISC-V assembly:</p>
         <ul>
             <li>Setting up and navigating a command line interface.</li>
             <li>Compiling and running C code.</li>
             <li>Understanding how C code compiles to assembly code.</li>
         </ul>
-    </p>
     
     <p><strong><mark>This Lab is still being updated. Feel free to use the Part 1 instructions below to get started on your environment setup, but note that more conceptual questions and activities will be added later.</mark></strong></p>
     <h2>Lab Description</h2>
@@ -101,11 +100,95 @@
 
     <h2>Part 2: Command Line Hacker</h2>
     <p>
-        Get a head start on the Command Line Hacker Activity in Canvas. More Conceptual Questions will be added here later
+        Complete the <a href="https://uncc.instructure.com/courses/261043/quizzes/614217?module_item_id=7788307">Command Line Hacker</a> activity in Canvas. This 
+        activity helps you learn how to navigate more true to life file systems, themed through snooping around for passwords.
     </p>
-    <h2>Part 3: Compiling C Code</h2>
+
+    <h2>Part 2 Conceptual Questions</h2>
+
     <p>
-        Instructions and Conceptual Questions will be added here later.
+        Once you have finished the Command Line Hacker activity, answer the following conceptual questions:
     </p>
+
+    <p>
+        <mark>Q2.1</mark>: When you first used SSH to access the assignment, you should've gotten a message mentioning an "ECDSA key". What is that,
+        and why was it mentioned? <br/>
+        <mark>Q2.2</mark>: In Level 3, you utilize the the <code>ls</code> command, with options <code>-l</code> and <code>-a</code>. What do they each do? <br/>
+        <mark>Q2.3</mark>: Would purpose could hiding files or directories serve in a work environment? Explain your answer with 1-2 sentences of justification.
+    </p>
+
+    <h2>Part 3: Writing C Code</h2>
+    <p>
+        For this component of the lab, you'll be re-implementing the convolution function from <a href="">Project 1</a>, this time writing the code using C. Use 
+        this same pseudocode from before as reference for what you need to implement:
+    </p>
+
+    <pre><code>
+        <b>A = {[initial array values]}</b>    // Input array of fixed size N, initialized to random values
+        <b>B = {0,0,0,...}</b>                 // Output array of fixed size N, initialized to zeros
+
+        <b>for i from 0 to N-1 do:</b>
+        <b>sum = A[i]</b>
+        <b>if i > 0 then:</b>
+            <b>sum = sum + A[i-1]</b>      // Add left neighbor if it exists
+        <b>if i < N-1 then:</b>
+            <b>sum = sum + A[i+1]</b>      // Add right neighbor if it exists
+        <b>B[i] = sum / 3</b>              // Each element in B is just the average of the corresponsing element in A and its neighbors
+                
+        <b>Print Array_A</b>                   // Output the original array
+        <b>Print Array_B</b>                   // Output the convolved array
+            </code></pre>
+
+    <p>
+        Here are some quick tips, to help you remember how to approach this problem in C:
+    </p>
+
+    <ul>
+        <li>Remember that every program in C needs to have a main function!</li>
+        <li>Remember to specify the datatype of any variable you create!</li>
+        <li>Remember that printing in C requires a bit of setup; also remember to use it to debug!</li>
+    </ul>
+
+    <h2>Part 3 Conceptual Questions</h2>
+
+    <p>Once you've finished your implementation, answer the following conceptual questions:</p>
+
+    <ul>
+        <li><mark>Q3.1</mark>: How difficult was this implementation compared to the other high level language you used in Part 1? Name that language, and 
+        justify your answer in 1-2 sentences, with specific examples.</li>
+        <li><mark>Q3.2</mark>: What parts of C made the most sense to you, and what parts made the least sense to you? Provide 3 examples total, at least one 
+        of each, and describe why they did or did not make sense to you.</li>
+    </ul>
+
+    <h2>Part 4: Compiling C Code to RISC-V</h2>
+
+    <p>
+        Compiling code is the process of taking the higher level code statements you've written (for example, in C), and processing them to 
+        create the actual code that will execute on your computer. You've used <code>gcc</code> to do this to make executable files so far, but 
+        <code>gcc</code> can also process your code directly into a form of assembly!
+    </p>
+
+    <p>
+        Unless you are on RISC architecture (which is unlikely), your code will likely compile to some CISC language, like x86. For this assignment, 
+        we want you to compile directly to RISC-V assembly, which can only be done on a RISC-V system (or an emulator!). To get around this, we'll use the
+        <a href="https://godbolt.org/">Godbolt Compiler Explorer</a> to compile your code to RISC-V assembly.
+    </p>
+
+    <p>
+        To do this, place your C code from Part 3 into the left box, and change the language from C++ to C. Next, in the right box, click the dropdown 
+        selector on the top, and select "RISC-V (32-bits) gcc (trunk)" from the options. From here, copy the compiled code into your submission document. 
+        Look at how the code is structured, and compare it to the RISC-V code you wrote to solve this problem in Project 1.
+    </p>
+
+    <h2>Part 4 Conceptual Questions</h2>
+
+    <ul>
+        <li><mark>Q4.1</mark>: Are there any instructions used in the solution compiled online you haven't seen before?</li>
+        <li><mark>Q4.2</mark>: What does the compiled code create in the data section, compared to your solution?</li>
+        <li><mark>Q4.3</mark>: Trace the code from the online compiler; does it tackle the problem any different from you?</li>
+        <li><mark>Q4.4</mark>: Which solution (yours or the compiled one) is the "better" solution, and why? Justify your answer in 2-3 sentences.</li>
+    </ul>
+
+    <p></p>
 </main>
 </html>
