@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Lab 5</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+<main>
+
+    <h1>Module 5 Lab: C Structs, Pointers, and Dynamic Memory</h1>
+
+    <p>This lab covers the following topics in C:
+        <ul>
+            <li>Declaring and using a <code>struct</code> type without <code>typedef</code>.</li>
+            <li>Using pointers to inspect how a <code>struct</code> and its members are laid out in memory.</li>
+            <li>Using pointers to read and write individual primitive variables.</li>
+            <li>Allocating primitives and <code>struct</code>s on the heap with <code>malloc</code> and releasing them with <code>free</code>.</li>
+            <li>Using pass by reference and pointer arithmetic to modify arrays.</li>
+        </ul>
+    </p>
+
+    <h2>Lab Description</h2>
+    <p>
+        You will work through four parts in order. First you will define a <code>struct Student</code>, create instances
+        with automatic storage, and use pointers only to <strong>observe</strong> addresses and sizes. Next you will
+        practice primitive pointers on simple variables. Then you will use <code>malloc</code> to place data on the heap.
+        Finally you will implement an in-place sort that takes an array by address and uses pointer arithmetic in the
+        implementation.
+    </p>
+
+    <h3>Submission Format</h3>
+
+    <p>
+        For this lab, you will submit a single document (Word or PDF) containing:
+        <ul>
+            <li><b>Complete source code</b> for each program you write (copy-paste into the document, or attach the corresponding <code>.c</code> files).</li>
+            <li>Screenshots of successful compilation with <code>gcc</code> and of each program's output, labeled by part.</li>
+            <li>Your answers to all conceptual questions, labeled by question number (e.g., <code>Q1.2</code>).</li>
+        </ul>
+    </p>
+    <p>
+        All code must compile and run with <code>gcc</code>.
+    </p>
+
+    <h2>Part 1: Anatomy of a (<code>struct</code>) Student</h2>
+
+    <p>
+        In this part, you will write a program which defines a custom <code>struct Student</code> type, 
+        and analyze how the fields of the struct are stored in memory.
+    </p>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>Define a <code>struct Student</code> that holds a <code>char</code> array of length 32 for the student's name, an <code>int</code> for the student's ID, and a <code>double</code> for the student's GPA.</li>
+        <li>Declare at least one <code>struct Student</code> variable and initialize its members (e.g., a sample name, id, and gpa).</li>
+        <li>Print the following using <code>printf</code> with appropriate format specifiers:
+            <ul>
+                <li>The size in bytes of the entire <code>struct Student</code> variable (Hint: You can get this value using the built-in <code>sizeof</code> operator</code>).</li>
+                <li>The size in bytes of each member of your variable struct, e.g. <code>sizeof(s.id)</code></li>
+                <li>The address of your variable and each of its members (Hint: Use the <code>&amp;</code> operator to get the address of a variable, and <code>%p</code> as the format specifier to print it out).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Part 1 Conceptual Questions</h3>
+    <p>
+        <mark>Q1.1</mark>: What were the addresses of each struct field? How does this order relate to the order of the fields in your declaration?<br/>
+        <mark>Q1.2</mark>: Compute the sum of <code>sizeof</code> each member (name array, <code>int</code>, <code>double</code>). Is <code>sizeof(struct Student)</code> equal to that sum? If not, what might explain the difference?<br/>
+        <mark>Q1.3</mark>: What do you think would happen to the addresses of the struct fields if you switched the order in the struct definition? Try it out and see what happens. Were there any differences between the outcome and your prediction?<br/>
+        <mark>Q1.4</mark>: What do you think would happen if you tried to initialize a student with a name that is longer than 32 characters? Try it out and see what happens. Were there any differences between the outcome and your prediction?<br/>
+    </p>
+
+    <h2>Part 2: Primitive Pointers</h2>
+
+    <p>
+        In this part, you will write a program which creates variables and accesses their values indirectly through their memory addresses. We call this <strong>"Indirection"</strong>.
+    </p>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>Declare <code>int a, b;</code> and <code>double x;</code> and initialize them to a random value of your choosing.</li>
+        <li>Declare <code>int *pa</code> and <code>int *pb</code>, set them to the addresses of a and b respectively.</li>
+        <li>Declare <code>double *px</code> pointing at <code>x</code>.</li>
+        <li>Use only the pointers (with <code>*</code>) to change at least one <code>int</code> and the <code>double</code>, then print the final values using either the variables or the pointers.</li>
+        <li>Print the addresses of <code>a</code>, <code>b</code>, and <code>x</code> so you can see three distinct locations.</li>
+    </ul>
+
+    <h3>Part 2 Conceptual Questions</h3>
+    <p>
+        <mark>Q2.1</mark>: What is the relationship between a variable's name (e.g., <code>a</code>), its address (<code>&amp;a</code>), and the value at a pointer (<code>*pa</code> when <code>pa == &amp;a</code>)?<br/>
+        <mark>Q2.2</mark>: Where in memory do automatic (local) variables like <code>a</code> and <code>b</code> typically live during a function call?<br/>
+        <mark>Q2.3</mark>: What would happen if you tried to dereference <code>pa</code> without setting its value properly?<br/>
+    </p>
+
+    <h2>Part 3: Using <code>malloc</code></h2>
+
+    <p>
+        In this part, you will write a program that uses <code>malloc</code> and <code>free</code> from <code>&lt;stdlib.h&gt;</code> to allocate memory on the heap.
+    </p>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>Allocate an <code>int</code> on the heap, assign a value through the returned pointer, print the value, then <code>free</code> it.</li>
+        <li>Allocate an <code>struct Student</code> on the heap. Use <code>sizeof</code> correctly in the <code>malloc</code> call (e.g., <code>malloc(sizeof(struct Student))</code> or <code>malloc(sizeof *p)</code> once <code>p</code> is declared with the right type).</li>
+        <li>Fill in the student's fields (use <code>-&gt;</code>), print the record, then <code>free</code> the struct.</li>
+        <li>Allocate an array of <code>int</code> of size 10 on the heap, and initialize all of the elements</li>
+        <li>Free all heap-allocated variables once you are done with them.</li>
+    </ul>
+
+    <h3>Part 3 Conceptual Questions</h3>
+    <p>
+        <mark>Q3.1</mark>: Why is it important to use <code>sizeof(struct Student)</code> (or <code>sizeof *p</code>) rather than guessing a byte count when calling <code>malloc</code> for a student?<br/>
+        <mark>Q3.2</mark>: What should your program do if <code>malloc</code> returns <code>NULL</code>? When could this happen?<br/>
+        <mark>Q3.3</mark>: Compare the address printed for a heap-allocated <code>struct Student</code> with the address of a local <code>struct Student</code> from Part 1 (run both in one program if you like). What observation can you make about where each object lives?<br/>
+    </p>
+
+    <h2>Part 4: Sorting with Pass-by-Address and Pointer Arithmetic</h2>
+
+    <p>
+        In this part, you will implement a function that sorts an array of <code>int</code> in <strong>ascending</strong> order <strong>in-place</strong>.
+        This means that it will actually modify the order of values in an array rather than just creating a separate sorted copy. 
+        
+    </p>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>Implement <code>void sort(int *arr, int n);</code> where <code>n</code> is the number of elements. The array is passed by address: the caller passes the address of the first element.</li>
+        <li>From <code>main</code>, declare an <code>int</code> array with at least 8 unsorted values, print it, call <code>sort</code>, then print the array again to show it is now sorted.</li>
+        <li>Implement a helper <code>void swap_ints(int *a, int *b);</code> (or similar) that exchanges two elements using pointers, and use it for your sort if appropriate.</li>
+        <li>Document in a comment which lines use pointer arithmetic explicitly.</li>
+    </ul>
+
+    <h3>Part 4 Conceptual Questions</h3>
+    <p>
+        <mark>Q4.1</mark>: Why does the <code>arr</code> parameter need to be a pointer rather than just a normal variable? What difference does this make?<br/>
+        <mark>Q4.2</mark>: Try passing in the array directly as an argument without <code>&amp;</code> (if you haven't already implemented it this way). Why does this also work. What is the value represented by <code>arr</code>?<br/>
+        <mark>Q4.3</mark>: Why would it be useful to sort in-place rather than creating a sorted copy?<br/>
+    </p>
+</main>
+</html>
