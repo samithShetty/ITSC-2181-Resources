@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Project 3</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+<main>
+
+<h1>Project 3: Data Explorer: Building Essential Data Analysis Tools in C - Part 2 </h1>
+
+    <p>
+        This project aims to provide hands-on experience in C programming by implementing essential data analysis tools. The motivation behind the project is to introduce students 
+        to both basic and advanced data manipulation techniques, empowering you to solve real-world problems while reinforcing their understanding of programming concepts. Through 
+        this project, you will learn how to efficiently work with arrays, perform statistical calculations, and process data using standard algorithms. This project is the first 
+        half of building this code base; Project 3 will be the second part of this codebase. Part 1 focuses on implementing an interactive command line program and fundamental 
+        array operations, such as finding minimum and maximum values, calculating averages, and counting occurrences of specific elements. Part 2 introduces advanced statistical 
+        functions, allowing one to calculate median, mode, range, and standard deviation, while also working with sorting and quartiles.
+    </p>
+
+    <p>
+        For Part 2, you will implement more advanced statistical functions for data analysis by adding functions that calculate the median, mode, range, variance, and standard 
+        deviation, as well as sorting the array and calculating quartiles. These statistical functions are essential in many real-world data analysis tasks and will expose you 
+        to important concepts like data distribution, dispersion, and central tendency. 
+    </p>
+
+<h2>Part 0: Code Setup</h2>
+
+    <p>
+        You will continue to use the code you wrote in Project 2; if you do not have this code, discuss with your instructional assistants or instructor on how to catch up to 
+        complete this lab.
+    </p>
+
+<h2>Part 1: CLI Requirements</h2>
+
+    <p>The starting program should be what you have completed in Part 1. In this part:</p>
+
+    <ul>
+        <li>
+            Copy the function prototypes of the six functions after those functions prototypes of part 1.
+        </li>
+
+        <li>
+            Enhance the command line processing to have additional 6 commands, one for each of the above functions. 
+            For array sorting, once it is sorted, it can be used for other functions. Thus it only needs to be sorted once, 
+            you can introduce a flag variable to indicate whether the array is sorted or not. If it is sorted, no need to sort 
+            anymore. But this is optional for you to do it in this part.
+        </li>
+
+        <li>
+            Implement each function at the end of the source file.
+        </li>
+
+        <li>
+            Compile and Test your program. If your program uses sqrt function from math library, you need to compile it with -lm to link with the math library, e.g: 
+            <code>gcc ITSC_2181-project1-800000-task2.c -o ITSC_2181-project1-800000-task2 -lm</code>
+        </li>
+    </ul>
+
+<h2>Functions to Implement</h2>
+
+
+    <ol>
+        <li>
+            <code>float calculateMedian(float arr[], int size)</code>
+
+            <ul>
+                <li>
+                    Description: This function calculates the median of the array, which is the middle value in a sorted list. If the array size is odd, 
+                    the median is the middle element. If the size is even, the median is the average of the two middle elements.
+                </li>
+
+                <li>
+                    Steps:
+                        <ol>
+                            <li>
+                                Sort the array. You can implement the <code>sortArray</code> function and use it for this one.
+                            </li>
+
+                            <li>
+                                If the size is odd, return the middle element.
+                            </li>
+
+                            <li>
+                                If the size is even, return the average of the two middle elements.
+                            </li>
+
+                        </ol>
+                </li>
+            </ul>
+        </li>    
+
+        <li>
+            <code>float calculateMode(float arr[], int size)</code>
+
+            <ul>
+                <li>
+                    Description: The mode is the value that appears most frequently in the array. 
+                    This function counts how often each value appears and returns the value with the highest frequency. 
+                    If multiple values have the same frequency, return any of them.
+                </li>
+
+                <li>
+                    Steps:
+                    <ol>
+                        <li>
+                            Use a frequency counting algorithm.
+                        </li>
+
+                        <li>
+                            Identify the value that occurs most frequently.
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </li>    
+
+
+        <li>
+            <code>float calculateRange(float arr[], int size)</code>
+
+            <ul>
+                <li>
+                    Description: The range is the difference between the maximum and minimum values in the array. This gives a measure of the spread of the data.
+                </li>
+
+                <li>
+                    Steps:
+                    <ol>
+                        <li>
+                            Find the maximum and minimum values using the <code>findMax</code> and <code>findMin</code> functions.
+                        </li>
+
+                        <li>
+                            Subtract the minimum from the maximum.
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </li>  
+
+        <li>
+            <code>float calculateStandardDeviation(float arr[], int size, float mean)</code>
+
+            <ul>
+                <li>
+                    Description: Standard deviation measures how spread out the values are from the mean. 
+                    It is calculated as the square root of the variance. You can use the <a href="https://www.programiz.com/c-programming/library-function/math.h/sqrt">
+                    sqrt function from math library.
+                    </a>
+                </li>
+
+                <li>
+                    Steps:
+                    <ol>
+                        <li>
+                            For each value in the array, compute its squared difference from the mean.
+                        </li>
+
+                        <li>
+                            Calculate the variance as the average of these squared differences.
+                        </li>
+
+                        <li>
+                            Return the square root of the variance.
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <code>float calculateVariance(float arr[], int size, float mean)</code>
+
+            <ul>
+                <li>
+                    Description: Variance is a measure of how much the values deviate from the mean. It is the average of the squared differences from the mean.
+                </li>
+
+                <li>
+                    Steps:
+                    <ol>
+                        <li>
+                            Calculate the squared difference between each element and the mean.
+                        </li>
+
+                        <li>
+                            Return the average of these squared differences.
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </li>  
+
+        <li>
+            <code>void sortArray(float arr[], int size)</code>
+
+            <ul>
+                <li>
+                    Description: This function sorts the array in ascending order. Sorting is a prerequisite for calculating the median and quartiles.
+                </li>
+
+                <li>
+                    Steps:
+                    <ol>
+                        <li>
+                            Implement a sorting algorithm (e.g., bubble sort or selection sort).
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </li>  
+    </ol>
+
+    <p>
+        Note for comparing float numbers: Comparing two float numbers particularly for equality has been known in computing literally impossible because of rounding 
+        errors and the way float numbers are represented in computing. Check Small lesson of the day: never check two floats for equality! In this project, simply subtract 
+        two float values from each other, to see if the values received are close enough to each other. <br><br>
+
+        <code>
+            float a, b;<br>
+    if ( a - b < .0000001 ) { … }
+        </code>
+    </p>
+
+    <p>
+        To see examples of what to implement, please look at the <a href="#examples">code output example</a>.
+    </p>
+
+
+<h3>Sample CLI Interface Structure With Functions</h3>
+
+<code>
+1: Find the minimum value in the array.<br>
+2: Find the maximum value in the array.<br>
+3: Calculate the average value of the array.<br>
+4: Find the index of a specific value.<br>
+5: Count how many times a given value appears.<br>
+6: Print the first 100 elements of the array.<br>
+7: Calculate the median<br>
+8: Calculate the mode<br>
+9: Calculate the range<br>
+10: Calculate the standard deviation<br>
+11: Calculate the variance<br>
+12: Sort the array<br>
+13: Exit<br>
+
+</code>
+
+
+<h2>Submission Instructions</h2>
+
+    <p>
+        Your file should be still named ITSC_2181_project1_student-id.c <br>
+        Replace student-id with your UNCC student ID (800#), e.g. 8001231234, and submit the file via Canvas.
+    </p>
+
+<h2>Grading Information</h2>
+    <p>
+        This Part is worth a total of 100 points.
+    </p>
+
+    <ol>
+        <li>
+            Enhance command line code to have the commands for task 2 (10 points)
+            <ul>
+
+                <li>
+                    Correct use of if-else/switch to determine what function to execute for the new command (4 points)
+                </li>
+                <li>
+                    Correct of scanf and printf to collect use input and print output (6 points)
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Implementation of each function 15 points for total of 90 points
+            <ul>
+                <li>
+                    Correct use of for loop (5 points), if-else and variable/parameters (8 points), return value (2 points)
+                </li>
+            </ul> 
+        </li>
+    </ol>
+
+
+
+
+    <p>
+        Do your own work. All cases of cheating will be taken very seriously. If you need help, please ask the instructor, TA/IA or CCI Tutoring center.
+    </p>
+
+
+    <p>
+        Programs need to compile to earn any credit. You may comment-out lines that have errors to obtain partial credit for work done.
+    </p>
+
+<h2 id="samples">Sample Output</h2>
+    <p>
+        Below is a sample output of compiling the program and executing the program:
+    </p><br>
+
+    <code>
+        ~/.../ITSC2181/Project1$ gcc ITSC_2181-project1-800000-task2.c -o ITSC_2181-project1-800000-task2 -lm<br>
+        ~/.../ITSC2181/Project1$ ./ITSC_2181-project1-800000-task2 <br>
+
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 1<br>
+        The minimum value is: 0.02<br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 8<br>
+        The mode is: 12.81<br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 7<br>
+        The median is: 49.62<br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 10<br>
+        The standard deviation is: 28.75<br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 11<br>
+        The variance is: 826.71<br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 3<br>
+        The average value is: 49.53<br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 6<br>
+        First 100 elements of the array:<br>
+        0.02 0.03 0.16 0.27 0.34 0.51 0.60 0.68 0.69 0.81 <br>
+        0.84 0.94 1.24 1.43 1.59 1.61 1.70 1.85 1.91 2.00 <br> 
+        2.07 2.21 2.30 2.35 2.36 2.37 2.47 2.55 2.57 2.83 <br>
+        2.86 2.89 2.99 3.11 3.28 3.39 3.62 3.82 3.83 3.86 <br>
+        3.96 4.02 4.24 4.25 4.32 4.54 4.59 4.62 4.85 4.85 <br>
+        4.85 5.02 5.12 5.26 5.27 5.29 5.56 5.56 5.64 5.66 <br>
+        5.71 6.22 6.26 6.27 6.41 6.52 6.65 6.85 6.94 7.01 <br>
+        7.02 7.03 7.08 7.30 7.58 7.64 7.68 7.72 7.73 7.84 <br>
+        7.98 8.01 8.02 8.04 8.09 8.16 8.27 8.28 8.43 8.75 <br>
+        8.77 8.95 9.04 9.04 9.29 9.35 9.45 9.48 9.52 9.53 <br>
+<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Calculate the median<br>
+        8: Calculate the mode<br>
+        9: Calculate the range<br>
+        10: Calculate the standard deviation<br>
+        11: Calculate the variance<br>
+        12: Sort the array<br>
+        13: Exit<br>
+<br>
+        Enter your command: 13<br>
+        Goodbye!<br>
+
+    </code>
+</main>
+</html>
