@@ -159,13 +159,16 @@
 
     <p>
         Note for comparing float numbers: Comparing two float numbers particularly for equality has been known in computing literally impossible because of rounding 
-        errors and the way float numbers are represented in computing. Check Small lesson of the day: never check two floats for equality! In this project, simply subtract 
-        two float values from each other, to see if the values received are close enough to each other. <br><br>
+        errors and the way float numbers are represented in computing. Check Small lesson of the day: never check two floats for equality! In this project, You can multiply 
+        floats by <code>100</code>, typecast them to an int (thus truncating all values after the decimal), and then subtract them to check for equality. This only works for floats which 
+        we care about being out to two decimal places; if we wanted to compare floats out to 3 decimal placeas, we'd use <code>1000</code> and so on. <br><br>
 
         <code>
             float a, b;<br>
-    if ( a - b < .0000001 ) { … }
-        </code>
+    if ((int)(a * 100) - (int)(b * 100) == 0) { … }
+        </code><br><br>
+
+        Alternatively, you can also implement a solution using float absolute value (<code>fabs()</code>), but this requires importing the <code>math</code> header file.
     </p>
 
     <p>
@@ -237,7 +240,7 @@ Command 7: Exit the program.<br>
         Programs need to compile to earn any credit. You may comment-out lines that have errors to obtain partial credit for work done.
     </p>
 
-<h2 id="samples">Sample Output</h2>
+<h2 id="examples">Sample Output</h2>
     <p>
         Below is a sample output of compiling the program and executing the program:
     </p><br>
