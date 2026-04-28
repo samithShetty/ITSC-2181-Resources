@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Project 2</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+<main>
+
+<h1>Project 2: Data Explorer: Building Essential Data Analysis Tools in C - Part 1 </h1>
+
+    <p>
+        This project aims to provide hands-on experience in C programming by implementing essential data analysis tools. The motivation behind the project is to introduce students 
+        to both basic and advanced data manipulation techniques, empowering you to solve real-world problems while reinforcing their understanding of programming concepts. Through 
+        this project, you will learn how to efficiently work with arrays, perform statistical calculations, and process data using standard algorithms. This project is the first 
+        half of building this code base; Project 3 will be the second part of this codebase. Part 1 focuses on implementing an interactive command line program and fundamental 
+        array operations, such as finding minimum and maximum values, calculating averages, and counting occurrences of specific elements. Part 2 introduces advanced statistical 
+        functions, allowing one to calculate median, mode, range, and standard deviation, while also working with sorting and quartiles.
+    </p>
+
+    <p>
+        In Task 1, you will start implementing a command-line interface (CLI) program to allow users to interact with the program by entering commands. You will then 
+        implement the basic array operations in C, such as finding the minimum and maximum values, calculating the average, counting occurrences of a specific number, 
+        and printing part of the array. The CLI will prompt the user to select a specific operation (command) by entering a number corresponding to the desired function. 
+        This will help you gain experience not only in writing basic array manipulation functions but also in working with user input, which is an essential skill in 
+        developing interactive programs.
+    </p>
+
+<h2>Part 0: Code Setup</h2>
+
+    <p>
+        To Start: A starting program is given that implements a random generator and includes the function prototypes for forward declaration. You can download the 
+        file (using wget command or just copy/paste the content of the file) to start your implementation. The file can be accessed from <a href="
+        https://raw.githubusercontent.com/passlab/ITSC2181/23856d06fdb8a192f32bd7f0dba24ab82a21ba21/src/project1/ITSC_2181-project1-xxx.c">ITSC_2181-project1-xxx.c</a>. 
+    </p>
+
+<h2>Part 1: CLI Requirements</h2>
+
+    <p>
+        To complete this lab, your CLI implementation will need to fit the following general requirements:
+    </p>
+
+    <ul>
+        <li>
+        The program will print a list of available commands, prompting the user to select an option by entering a number.
+        </li>
+
+        <li>
+        The program will continue to ask for input until the user decides to exit.
+        </li>
+
+        <li>
+        Each command will correspond to a specific function.
+        </li>
+    </ul>
+
+    <p>
+        We recommend starting this project by implementing the CLI without any of the functions. Think about what your command line will need to do, and how you'll implement it. 
+        You'll need to utilize some type of loop for running the program, and prompt the user for input; you'll then need to check this input to determine what function to run. After 
+        running the requested function, it should again prompt for a function to run. This should continue until the user enters something to exit the program.
+    </p>
+
+    <p>
+        To see examples of what to implement, please look at the <a href="#examples">code output example</a>.
+    </p>
+
+<h2>Functions to Implement</h2>
+
+
+    <ol>
+        <li>
+            float findMin(float arr[], int size)
+
+            <ul>
+                <li>
+                    Purpose: Finds the minimum value in the array.
+                </li>
+
+                <li>
+                    Return Value: float – the minimum value in the array.
+                </li>
+            </ul>
+        </li>    
+
+        <li>
+            float findMax(float arr[], int size)
+
+            <ul>
+                <li>
+                    Purpose: Finds the maximum value in the array.
+                </li>
+
+                <li>
+                    Return Value: float – the maximum value in the array.
+                </li>
+            </ul>
+        </li>    
+
+
+        <li>
+            float calculateAverage(float arr[], int size)
+
+            <ul>
+                <li>
+                    Purpose: Calculates the average (mean) of the array.
+                </li>
+
+                <li>
+                    Return Value: float – the average value of the array.
+                </li>
+            </ul>
+        </li>  
+
+        <li>
+            int findIndexOf(float arr[], int size, float num)
+
+            <ul>
+                <li>
+                    Purpose: Finds the index of the first occurrence of a given number in the array.
+                </li>
+
+                <li>
+                    Return Value: int – the index of the number in the array, or -1 if not found.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            int countOccurrences(float arr[], int size, float num)
+
+            <ul>
+                <li>
+                    Purpose: Counts how many times a given number appears in the array.
+                </li>
+
+                <li>
+                    Return Value: int – the number of occurrences of the specified number.
+                </li>
+            </ul>
+        </li>  
+
+        <li>
+            void printFirst100(float arr[])
+
+            <ul>
+                <li>
+                    Purpose: Prints the first 100 elements of the array.
+                </li>
+
+                <li>
+                    Return Value: void – no return value.
+                </li>
+            </ul>
+        </li>  
+    </ol>
+
+    <p>
+        Note for comparing float numbers: Comparing two float numbers particularly for equality has been known in computing literally impossible because of rounding 
+        errors and the way float numbers are represented in computing. Check Small lesson of the day: never check two floats for equality! In this project, You can multiply 
+        floats by <code>100</code>, typecast them to an int (thus truncating all values after the decimal), and then subtract them to check for equality. This only works for floats which 
+        we care about being out to two decimal places; if we wanted to compare floats out to 3 decimal placeas, we'd use <code>1000</code> and so on. <br><br>
+
+        <code>
+            float a, b;<br>
+    if ((int)(a * 100) - (int)(b * 100) == 0) { … }
+        </code><br><br>
+
+        Alternatively, you can also implement a solution using float absolute value (<code>fabs()</code>), but this requires importing the <code>math</code> header file.
+    </p>
+
+    <p>
+        To see examples of what to implement, please look at the <a href="#examples">code output example</a>.
+    </p>
+
+
+<h3>Sample CLI Interface Structure With Functions</h3>
+
+<code>
+Command 1: Find the minimum value in the array.<br>
+Command 2: Find the maximum value in the array.<br>
+Command 3: Calculate the average value of the array.<br>
+Command 4: Find the index of a specific value.<br>
+Command 5: Count how many times a given value appears.<br>
+Command 6: Print the first 100 elements of the array.<br>
+Command 7: Exit the program.<br>
+</code>
+
+
+<h2>Submission Instructions</h2>
+
+    <p>
+        Put your implementation in a single file and name it as ITSC_2181_project1_student-id.c
+        Replace student-id with your UNCC student ID (800#), e.g. 8001231234, and submit the file via Canvas.
+    </p>
+
+<h2>Grading Information</h2>
+    <p>
+        This task is worth a total of 80 points.
+    </p>
+
+    <ol>
+        <li>
+            Command line code (20 points)
+            <ul>
+
+                <li>
+                    Use a while loop/do while/for processing command line (6 points)
+                </li>
+                <li>
+                    Correct use of if-else/switch to determine what function to execute for each command (8 points)
+                </li>
+                <li>
+                    Correct of scanf and printf to collect use input and print output (6 points)
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Implementation of each function 10 points for total of 60 points
+            <ul>
+                <li>
+                    Correct use of for loop (3 points), if-else and variable/parameters (5 points), return value (2 points)
+                </li>
+            </ul> 
+        </li>
+    </ol>
+
+
+
+
+    <p>
+        Do your own work. All cases of cheating will be taken very seriously. If you need help, please ask the instructor, TA/IA or CCI Tutoring center.
+    </p>
+
+
+    <p>
+        Programs need to compile to earn any credit. You may comment-out lines that have errors to obtain partial credit for work done.
+    </p>
+
+<h2 id="examples">Sample Output</h2>
+    <p>
+        Below is a sample output of compiling the program and executing the program:
+    </p><br>
+
+    <code>
+        ~/.../ITSC2181/Project1$ gcc ITSC_2181-project1-800000.c -o ITSC_2181-project1-800000<br>
+        ~/.../ITSC2181/Project1$ ./ITSC_2181-project1-800000<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 1<br>
+        The minimum value is: 0.08<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 2<br>
+        The maximum value is: 99.98<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 3<br>
+        The average value is: 48.86<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 4<br>
+        Enter the number to find: 12<br>
+        The number 12.00 is not found in the array.<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 4<br>
+        Enter the number to find: 22<br>
+        The number 22.00 is not found in the array.<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 6<br>
+        First 100 elements of the array:<br>
+        7.42 46.42 65.66 68.72 48.72 79.13 7.57 94.58 93.82 14.39<br>
+        28.62 24.55 87.52 66.36 48.30 98.22 67.58 73.92 15.17 15.80<br>
+        84.43 31.55 86.42 67.89 53.92 54.69 80.23 98.74 61.70 80.71<br>
+        78.74 69.12 27.13 44.41 37.84 75.84 23.53 45.40 70.42 17.35<br>
+        59.79 99.04 41.90 47.32 65.40 90.20 45.54 32.98 64.12 60.71<br>
+        48.79 48.55 92.26 35.20 16.44 46.18 89.89 96.67 44.91 51.59<br>
+        77.38 23.66 20.71 4.50 68.06 58.55 80.34 91.60 3.96 50.77<br>
+        8.95 63.75 49.81 50.85 11.06 15.21 41.05 56.61 48.19 5.16<br>
+        17.32 96.98 53.71 9.58 32.19 70.15 55.76 22.08 66.82 0.67<br>
+        73.67 44.19 24.33 94.39 48.69 92.39 52.94 29.04 83.99 56.89<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 4<br>
+        Enter the number to find: 65.66<br>
+        The number 65.66 is not found in the array.<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 5<br>
+        Enter the number to count: 65.66<br>
+        The number 65.66 occurs 0 times in the array.<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 3<br>
+        The average value is: 48.86<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 4<br>
+        Enter the number to find: 7.42<br>
+        The number 7.42 is not found in the array.<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 6<br>
+        First 100 elements of the array:<br>
+        7.42 46.42 65.66 68.72 48.72 79.13 7.57 94.58 93.82 14.39<br>
+        28.62 24.55 87.52 66.36 48.30 98.22 67.58 73.92 15.17 15.80<br>
+        84.43 31.55 86.42 67.89 53.92 54.69 80.23 98.74 61.70 80.71<br>
+        78.74 69.12 27.13 44.41 37.84 75.84 23.53 45.40 70.42 17.35<br>
+        59.79 99.04 41.90 47.32 65.40 90.20 45.54 32.98 64.12 60.71<br>
+        48.79 48.55 92.26 35.20 16.44 46.18 89.89 96.67 44.91 51.59<br>
+        77.38 23.66 20.71 4.50 68.06 58.55 80.34 91.60 3.96 50.77<br>
+        8.95 63.75 49.81 50.85 11.06 15.21 41.05 56.61 48.19 5.16<br>
+        17.32 96.98 53.71 9.58 32.19 70.15 55.76 22.08 66.82 0.67<br>
+        73.67 44.19 24.33 94.39 48.69 92.39 52.94 29.04 83.99 56.89<br>
+        Welcome to the Data Explorer: Building Essential Data Analysis Tools in C!<br>
+        Please choose an option by entering the corresponding number:<br>
+        1: Find the minimum value<br>
+        2: Find the maximum value<br>
+        3: Calculate the average<br>
+        4: Find the index of a given number<br>
+        5: Count occurrences of a given number<br>
+        6: Print the first 100 elements<br>
+        7: Exit<br>
+        Enter your command: 7<br>
+        Goodbye!<br>
+    </code>
+</main>
+</html>

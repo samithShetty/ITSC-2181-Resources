@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Lab 2</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+<main>
+
+    <h1>Module 2 Lab: RISC-V Assembly Programming in RARS</h1>
+    
+    <p>This lab covers the following course topics and goals:
+        <ul>
+            <li>Practice reading documentation to understand software behavior</li>
+            <li>Understanding the structure and execution flow of RISC-V assembly programs.</li>
+            <li>Proficiency with arithmetic, logic, and loading/storing instructions.</li>
+            <li>Understanding how bit-manipulation is used to perform mathematical operations.</li>
+            <li><strong>Understanding the practical constraints and capabilities of assembly instructions.</strong></li>
+        </ul>
+    </p>
+
+    <h2>Lab Description</h2>
+
+    <p>
+        In this lab, you will write RISC-V assembly programs using RARS (RISC-V Assembler and Runtime Simulator). 
+        You will start by understanding an existing Hello World program, then write increasingly complex programs of your own.
+    </p>
+
+    <h3>Submission Format</h3>
+
+    <p>
+        For this lab, you will submit a single document (Word or .pdf) containing:
+        <ul>
+            <li>Screenshots of successfully executed assembly code for each Part/Program</li>
+            <li>Your answers to all conceptual questions, labeled by question number (e.g., "Q2.1.3")</li>
+        </ul>
+    </p>
+
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+
+    <h2>Part 1: Introduction to RARS and Hello World</h2>
+
+    <p>
+        In this part, you will set up RARS, learn the basic structure of a full RISC-V assembly program, and run a basic Hello World program.
+    </p>
+
+    <h3>Setup and Tutorial</h3>
+
+    <p>
+        Follow these steps to get started:
+        <ul>
+            <li><b>Tutorial:</b> Watch this <a href="https://passlab.github.io/ITSC3181/resources/UsingRARS_ITSC3181.mp4">video walkthrough on RARS and documentation</a>.</li>
+            <li><b>Download RARS:</b> Go to <a href="https://github.com/TheThirdOne/rars">the RARS repository on GitHub</a> and scroll down to the Download section of the README . Install the appropriate version for your operating system.</li>
+            <li><b>Read the Hello World Tutorial:</b> Read through the <a href="https://github.com/TheThirdOne/rars/wiki/Creating-Hello-World">RARS Hello World tutorial</a> to get an idea of what a full RISC-V program looks like. Make sure to read the code comments to understand what each line is doing</li>
+            <li><b>Copy and Execute:</b> Copy the final Hello World program into RARS and execute it. Verify that the output appears in the console.</li>
+            <li><b>Extra Research:</b> Take a closer look at the documentation shown in the walkthrough video and read through the <a href="https://github.com/TheThirdOne/rars/wiki/Fundamentals-of-RISC-V-Assembly">Fundamentals of RISC-V Assembly</a> to learn more!</li>
+        </ul>
+    </p>
+
+    <h3>Part 1 Conceptual Questions</h3>
+
+    <p>
+        <mark>Q1.1:</mark> In the Hello World program, notice the lines using the <code>li</code> (psuedo) instruction. What are these lines doing? 
+        How could this be accomplished using a real instruction that we've studied?  
+        <br/>
+        <i>Note: You won't be allowed to use pseudo-instructions such as <code>li</code> for your programs in this class.</i>
+
+    </p>
+
+    <p>
+        <mark>Q1.2:</mark> In the Hello World program, the register <code>a7</code> is set to different values at different points in the program (e.g., first to 64, then to 93). 
+        Why is <code>a7</code> set multiple times, and what does each value tell the system to do?
+    </p>
+
+    <hr>
+
+    <h2>Part 2: Arithmetic and Logic Instructions</h2>
+
+    <p>
+        In this part, you will write programs using arithmetic and logic instructions to perform mathematical and bitwise operations.
+    </p>
+
+    <h3>Program 2.1: Arithmetic Operations</h3>
+
+    <p>
+        Write a program that computes: <code>x = ((y - z) / 2) * 17</code>, where:
+        <ul>
+            <li><code>x</code> is stored in register <code>t0</code> (the final result)</li>
+            <li><code>y</code> is stored in register <code>t1</code> with initial value 12</li>
+            <li><code>z</code> is stored in register <code>t2</code> with initial value 20</li>
+        </ul>
+    </p>
+
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+
+    <p>
+        After computing the result, print the value of <code>x</code> to the console. (Hint: use <code>ecall</code> with <code>a7 = 1</code> to print an integer.)
+    </p>
+    
+    <p>
+        <b>Important:</b> You <strong>cannot</strong> use pseudo-instructions such as <code>li</code> or <code>mul</code> for your programs.
+        Use the real instructions that we have discussed in class.
+    </p>
+
+    <p>
+        <b>Program 2.1 Skeleton:</b>
+    </p>
+
+    <p>
+        <code>
+            .text<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.globl main<br>
+            <br>
+            main:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Initialize registers<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Compute x<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Print x<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a0, t0, 0&nbsp;&nbsp;&nbsp;&nbsp;# Move x into a0 for printing<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a7, x0, 1&nbsp;&nbsp;&nbsp;&nbsp;# System call for print integer<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ecall<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Exit<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a7, x0, 10<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ecall<br>
+        </code>
+    </p>
+
+    <p>
+        <b>Part 2.1 Conceptual Questions:</b>
+    </p>
+
+    <p>
+        <mark>Q2.1.1:</mark> What RISC-V instruction(s) did you use to divide by 2 and why? What would happen if you used the alternative instruction?
+    </p>
+    <p>
+        <mark>Q2.1.2:</mark> What RISC-V instruction(s) did you use to multiply by 17? Explain how the math works out.   
+    </p>
+
+    <h3>Program 2.2: Logic Operations (Bitwise NOT)</h3>
+
+    <p>
+        Write a program that computes: <code>z = ~y</code> (bitwise NOT of y), where:
+        <ul>
+            <li><code>y</code> is stored in register <code>t1</code> with initial value 2181</li>
+            <li><code>z</code> is stored in register <code>t2</code> (the result)</li>
+        </ul>
+    </p>
+
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+    
+        <p>
+            After computing the result, print the value of <code>z</code> to the console.
+        </p>
+
+    <p>
+        <b>Important:</b> You cannot use pseudo-instructions such as <code>li</code> or <strong><code>NOT</code></strong>. You must implement NOT using one of the logical instructions: <code>and</code>, <code>or</code>, or <code>xor</code>.
+    </p>
+
+    <p>
+        <b>Hint:</b> Which logical instruction flips 0s to 1s and 1s to 0s? (Try drawing a truth table if needed.)
+    </p>
+
+    <p>
+        <b>Program 2.2 Skeleton:</b>
+    </p>
+
+    <p>
+        <code>
+            .text<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.globl main<br>
+            <br>
+            main:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Initialize y<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark>Compute z<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Print z<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a0, t2, 0&nbsp;&nbsp;&nbsp;&nbsp;# Move z into a0 for printing<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a7, x0, 1&nbsp;&nbsp;&nbsp;&nbsp;# System call for print integer<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ecall<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Exit<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a7, x0, 10<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ecall<br>
+        </code>
+    </p>
+
+    <p>
+        <b>Part 2.2 Conceptual Questions:</b>
+    </p>
+
+    <p>
+        <mark>Q2.2.1:</mark> What is the binary representation of y (2181)? What is the binary representation of ~y?
+    </p>
+    
+    <p>
+        <mark>Q2.2.2:</mark> What would be the result of z & y? What about z | y? Explain why.
+    </p>
+
+    <p>
+        <mark>Q2.2.3:</mark> What is the decimal value printed by your program for z? Does it match what you'd expect based on the value of y? Explain it's value using Two's Complement as a reference.
+    </p>
+
+    <p>
+        <mark>Q2.2.4:</mark> Is there a way to perform the NOT operation using just a single logical instruction? (hint: Think about immediates) 
+        Explain your reasoning.
+    </p>
+
+    <hr>
+
+    <h2>Part 3: Loading and Storing (Memory Access)</h2>
+
+    <p>
+        In this part, you will work with variables and arrays in memory, using <code>lw</code> (load word) and <code>sw</code> (store word) instructions.
+    </p>
+
+    <h3>Program 3.1: Load, Compute, and Store Variables</h3>
+
+    <p>
+        Write a program that:
+        <ul>
+            <li>Declares variables <code>x = 21</code>, <code>y = 81</code>, and <code>z</code> (uninitialized) in memory</li>
+            <li>Loads <code>x</code> and <code>y</code> from memory into registers</li>
+            <li>Computes <code>z = x + y</code></li>
+            <li>Stores the result back into the memory location for <code>z</code></li>
+        </ul>
+    </p>
+
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+
+    <p>
+        <b>Program 3.1 Skeleton:</b>
+    </p>
+
+    <p>
+        <code>
+            .data<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Declare/Initialize x, y, and z<br>
+            <br>
+            .text<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.globl main<br>
+            main:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Fetch Memory addresses for variables x from memory<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;la s0, x&nbsp;&nbsp;&nbsp;&nbsp;# Load address of x<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;la s1, y&nbsp;&nbsp;&nbsp;&nbsp;# Load address of y<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;la s2, z&nbsp;&nbsp;&nbsp;&nbsp;# Load address of z<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Load x and y into registers<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Compute x + y<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Store result into z<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Exit<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a7, x0, 10<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ecall<br>
+        </code>
+    </p>
+
+    <p>
+        <b>Part 3.1 Conceptual Questions:</b>
+    </p>
+
+    <p>
+        <mark>Q3.1.1:</mark> After your program completes, check the Data Segment in RARS. What value is now stored in the memory location for <code>z</code>? What instruction put it there?
+    </p>
+
+    <p>
+        <mark>Q3.1.2:</mark> Why is it necessary to use the <code>la</code> (load address) instruction before using <code>lw</code> (load word)? 
+        What information does <code>la</code> provide that <code>lw</code> needs?
+    </p>
+        
+    <p>
+        <mark>Q3.1.3:</mark> What would happen if you updated the register holding <code>z</code>'s value after storing to memory? Would this update the value in memory as well? Explain why or why not.
+    </p>
+
+    <h3>Program 3.2: Loading and Summing Array Elements</h3>
+
+    <p>
+        Write a program that:
+        <ul>
+            <li>Declares an array <code>arr = [10, 11, 12, 13]</code> in memory</li>
+            <li>Declares a variable <code>sum</code> initialized to 0 in memory</li>
+            <li>Loads each element of the array, adds them together</li>
+            <li>Stores the final sum into the <code>sum</code> variable</li>
+        </ul>
+    </p>
+
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+
+    <p>
+        <b>Program 3.2 Skeleton:</b>
+    </p>
+
+    <p>
+        <code>
+            .data<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<mark>TODO:</mark> Declare/initialize arr and sum<br>
+            <br>
+            .text<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.globl main<br>
+            main:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Load base address of array<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Load and add each array element<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Store final sum to memory<br>
+            
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# Exit<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;addi a7, x0, 10<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ecall<br>
+        </code>
+    </p>
+
+    <p>
+        <b>Part 3.2 Conceptual Questions:</b>
+    </p>
+
+    <p>
+        <mark>Q3.2.1:</mark> After your program completes, check the Data Segment in RARS. What value is stored in <code>sum</code>?
+    </p>
+
+    <p>
+        <mark>Q3.2.2:</mark>How did you calculate the memory offset for each array element when loading them? 
+        How would this change if the array held <code>long</code> integers (8 bytes long) instead?
+    </p>
+
+    <hr>
+
+    <h2>Part 4: Challenge - Character Indexing and Printing</h2>
+
+    <p>
+        This is a challenge problem that combines memory access, dynamic indexing, and character I/O.
+    </p>
+
+    <p>
+        Write a program that:
+        <ul>
+            <li>Declares a string (array of characters) of your name in memory (e.g., <code>.asciz "Chris"</code>)</li>
+            <li>Declares a variable <code>i = 2</code> in memory</li>
+            <li>Loads <code>i</code> from memory</li>
+            <li>Loads the character at index <code>i</code> (i.e. <code>name[i]</code>) from the memory</li>
+            <li>Prints that character to the console</li>
+        </ul>
+    </p>
+
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+
+    <p>
+        <b>Note:</b> Unlike standard integers, which are full words (4 bytes), a character is only a single byte of data. 
+        You will need to use a different instruction to load in your data.
+        Also, printing a character, uses a different ecall code.
+        See the <a href="https://github.com/TheThirdOne/rars/wiki/Environment-Calls">RARS ecall reference table</a> to figure out which environment call to use.
+    </p>
+    <p>
+        <b>No skeleton for the Challenge Problem!</b> <i>Use previous questions and examples from documentation as a reference</i>
+    </p>
+    <p>
+        <b>Part 4 Conceptual Questions:</b>
+    </p>
+
+    <p>
+        <mark>Q4.1:</mark> Which load instruction did you use to load a character from the string? 
+        How does this function differently than the normal <code>lw</code> instruction?
+    </p>
+
+    <p>
+        <mark>Q4.2:</mark> What character was printed by your program? Verify that it is the correct character from your name at index 2. Why isn't this the second character?
+    </p>
+
+    <p>
+        <mark>Q4.3:</mark> Did you need to you need to multiply the index to calculate the byte offset in this example? Why or why not? 
+        What exact instruction would you have needed to add to your program if your array held integers instead? Where would this instruction go?   
+        <i>Hint: Think about calculating the offset</i>
+    </p>
+
+    <p>
+        <mark>Q4.4 (Bonus):</mark> What would happen if you initialized i = 0? What character would be printed? 
+        What if you set i to a value larger than the length of your name, or a negative value? Why might this be dangerous?
+    </p>
+
+</main>
+
+</html>

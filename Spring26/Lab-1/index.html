@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Lab 1</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+</head>
+
+<main>
+
+    <h1>Module 1 Lab: Translating Computer Instructions</h1>
+    
+    <p>This lab covers the following course topics:
+        <ul>
+            <li>Understanding of the basic function of a Von-Neumann architecture.</li>
+            <li>Conversion of decimal values to binary values, and the reverse.</li>
+            <li>Conversion of binary values into hexidecimal values, and the reverse.</li>
+            <li>Translation of binary values to basic computing instructions, and the reverse.</li>
+        </ul>
+    </p>
+
+    <h2>Lab Description</h2>
+
+    <p>
+        In this lab, you will interact with a basic 8-bit computer system, with a highly simplified instruction format.
+        You will translate between:
+        <ul>
+            <li>English descriptions of commands</li>
+            <li>The corresponding 8-bit binary values the system executes</li>
+        </ul>
+    </p>
+    <!-- For some reason, a ul element breaks subsequent lines in a p element. Start a new p element after each ul.-->
+    <p>
+        Later sections may ask you to translate those binary values to hexidecimal and decimal as well.
+        You will also be asked to provide basic descriptions of what short programs do (never in significant depth).
+    </p>
+
+    <p>
+        For this lab, you will submit either:
+        <ul>
+            <li>A Word Document/PDF File</li>
+            <li>A Plaintext .txt File</li>
+        </ul>
+    </p>
+
+    <h3>Submission Format</h3>
+
+    <p>
+        For each question, write the corresponding number and answer in the document, each on a new line.
+        Some questions will have multiple parts, such as "Q4.1"; treat this as individual questions which are answered on separate lines.
+        If there are question designations like this in a table, you will fill in the blank as the answer to that question.
+    </p>
+
+    <h2>Part 1: System Architecture</h2>
+
+    <p>
+        Below is a basic description of the 8-bit system that we will utilize for the lab. There are two important components you need to understand:
+        <ul>
+            <li>
+                <b>Registers</b>: Registers are small storage locations that each hold an 8-bit value, such as <code>00110011</code>.
+                This system has <b>4 registers</b>, numbered 0-3. They will be referenced in instructions by the 2-bit representation of their number (e.g. Register 2 -> <code>10</code>).
+            </li><br>
+            <li>
+                <b>Memory</b>: Memory is a larger storage area than registers. Some instructions may read from memory or write to memory.
+                In this simplified system, <b>memory access is controlled by a single "memory access" bit</b> within each instruction.
+            </li>
+        </ul>
+    </p>
+
+    <h3>Instruction Format</h3>
+
+    <p>
+        Every instruction is exactly 8 bits and is formatted like this:
+        <br><br>
+        <code>[3-bit instruction] [1-bit memory access] [2-bit source register 1] [2-bit source register 2]</code>
+        <br><br>
+        We will write these fields as:
+        <br><br>
+        <code>iii m s1 s2</code>
+        <ul>
+            <li><code>iii</code> = the 3-bit instruction code (which operation to perform)</li>
+            <li><code>m</code> = the 1-bit memory access flag
+                <ul>
+                    <li><code>m = 1</code> means: this instruction is allowed to perform a memory read/write</li>
+                    <li><code>m = 0</code> means: this instruction only uses registers</li>
+                </ul>
+            </li>
+            <li><code>s1</code> = 2-bit register ID for source register 1</li>
+            <li><code>s2</code> = 2-bit register ID for source register 2</li>
+        </ul>
+    </p>
+
+    <h3>Commands</h3>
+
+    <p>
+        This system supports 8 operations (because 3 bits can represent 8 distinct instruction codes).
+        The table below defines the instruction codes we will use in this lab:
+    </p>
+
+    <table style="border-collapse:collapse; max-width:900px;">
+        <caption>
+            System Instruction Codes, Names, and Functionality
+        </caption>
+        <thead>
+            <tr>
+                <th><b>Instruction Code (<code>iii</code>)</b></th>
+                <th><b>Name</b></th>
+                <th><b>What it does</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>000</code></td>
+                <td><b>IN</b> (Read Input)</td>
+                <td>Read a value from <b>input</b> into register <code>s1</code>. (<code>s2</code> ignored.)</td>
+            </tr>
+            <tr>
+                <td><code>001</code></td>
+                <td><b>OUT</b> (Write Output)</td>
+                <td>Write the contents of Register #1 (<b><code>01</code></b>)  to <b>output</b>. (<code>s1</code> and <code>s2</code> ignored.)</td>
+            </tr>
+            <tr>
+                <td><code>010</code></td>
+                <td><b>LOAD</b></td>
+                <td>Load from <b>memory address indicated by <code>s1</code></b> into register <code>s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>011</code></td>
+                <td><b>STORE</b></td>
+                <td>Store the value in register <code>s1</code> into <b>memory address indicated by <code>s2</code></b>.</td>
+            </tr>
+            <tr>
+                <td><code>100</code></td>
+                <td><b>ADD</b></td>
+                <td>Add registers <code>s1</code> and <code>s2</code>, store the result back into <code>s1</code>: <code>s1 = s1 + s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>101</code></td>
+                <td><b>SUB</b></td>
+                <td>Subtract registers <code>s1</code> and <code>s2</code>, store the result back into <code>s1</code>: <code>s1 = s1 - s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>110</code></td>
+                <td><b>AND</b></td>
+                <td>Bitwise AND of <code>s1</code> and <code>s2</code>, store back into <code>s1</code>: <code>s1 = s1 AND s2</code>.</td>
+            </tr>
+            <tr>
+                <td><code>111</code></td>
+                <td><b>OR</b></td>
+                <td>Bitwise OR of <code>s1</code> and <code>s2</code>, store back into <code>s1</code>: <code>s1 = s1 OR s2</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <b>Important notes about the memory-access bit (<code>m</code>):</b>
+        <ul>
+            <li>For <b>LOAD</b> and <b>STORE</b>, you must set <code>m = 1</code></li>
+            <li>For all other instructions, you should use <code>m = 0</code>. </li>
+        </ul>
+    </p>
+
+    <h4>Instruction Examples</h4>
+
+    <p>Below are example instructions, shown in binary and broken into their fields <code>(iii)(m)(s1)(s2)</code>:</p>
+
+    <ul>
+        <li>
+            <code>00001000</code> &nbsp; <code>(000)(0)(10)(00)</code>:
+            Read input into Register 2.
+        </li>
+        <li>
+            <code>00100000</code> &nbsp; <code>(001)(0)(00)(00)</code>:
+            Write Register 1 to output. (Both register fields ignored.)
+        </li>
+        <li>
+            <code>01010011</code> &nbsp; <code>(010)(1)(00)(11)</code>:
+            LOAD from memory address indicated by Register 0 into Register 3.
+        </li>
+        <li>
+            <code>01111001</code> &nbsp; <code>(011)(1)(10)(01)</code>:
+            STORE the value in Register 2 into the memory address indicated by Register 1.
+        </li>
+        <li>
+            <code>10001100</code> &nbsp; <code>(100)(0)(11)(00)</code>:
+            ADD: <code>R3 = R3 + R0</code>.
+        </li>
+        <li>
+            <code>11000111</code> &nbsp; <code>(110)(0)(01)(11)</code>:
+            AND: <code>R1 = R1 AND R3</code>.
+        </li>
+    </ul>
+    <h3>Questions</h3>
+    <p>
+        <ul>
+            <li>
+                <mark>Q1</mark>: How many possible 8-bit instructions exist in this system format?
+            </li>
+            <li>
+                <mark>Q2</mark>: Give one example of a “bit pattern” that is syntactically well-formed (it matches the field sizes),
+                but would be considered <i>invalid</i> for this lab due to incorrect use of the memory bit. Explain why.
+            </li>
+            <li>
+                <mark>Q3</mark>: Which parts of the instruction are ignored during the <b>OUT</b> instruction, and what practical issue could that cause when you are trying to read/debug a program?
+            </li>
+            <li>
+                <mark>Q4</mark>: Describe one way to “clear” a register (set it to <code>00000000</code>) using only the provided instructions.
+                You do <i>not</i> need to write full binary for this answer—an English description is fine.
+                <ul>
+                    <li><b>Hint</b>: Consider what operations can produce a result of zero.</li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+
+    <h2>Part 2: Basic Conversions (Binary and English)</h2>
+
+    <p>
+        Now we'll utilize short snippets of code to make this system do things.
+        For each program, we provide an incomplete table that includes the sequential instructions in different forms.
+        For each program, you'll be required to fill in the missing table cells, and answer short questions related to the program afterwards.
+    </p>
+
+    <h3>Program 1: Add Two Inputs, Output the Sum</h3>
+
+    <p>
+        This program reads one value from input, one value from memory, adds them, and outputs the result.
+        Assume the first input goes into register #0 and the second input goes into register #1.
+        Then we compute <code>R1 = R1 + R0</code>, and output it.
+    </p>
+        
+    <p><b>Note:</b> Register 3 holds the memory address of variable x.</p>
+    
+    <table style="border-collapse:collapse; text-align:center;">
+        <caption>
+            Program 1: Fill in the Blank Conversions Between English and Binary
+        </caption>
+        <thead>
+            <tr>
+                <th><b>Step</b></th>
+                <th><b>Binary Instruction</b></th>
+                <th><b>English Description</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>00001000</td>
+                <td><mark>Q5.1:</mark></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><mark>Q5.2:</mark></td>
+                <td>LOAD from memory address indicated<br> by Register 3 into Register 1.</td>
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>10000110</td>
+                <td><mark>Q5.3:</mark></td>
+                
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><mark>Q5.4:</mark></td>
+                <td>Write Register 1 to output.</td>
+                
+            </tr>
+        </tbody>
+    </table>
+    
+    <p>
+        <ul>
+            <li><mark>Q6</mark>: Which register holds the final sum right after Step 3? Why is it important that this register specifically is used?</li>
+            <li><mark>Q7</mark>: Before Adding the numbers together, which registers holds the value of variable <code>x</code></li>
+            <li><mark>Q8</mark>: When will binary values be interpreted as the number seen in the binary column? When will it be interpreted as an instruction?</li>
+            
+        </ul>
+    </p>
+
+    <h3>Program 2: Even / Odd Determiner</h3>
+    <p>Fill in the cells marked with questions below. Afterwards, you will be asked to describe how the program works.</p>
+    <p><b>Note:</b> Register 2 holds the binary value for the number 1, and Register 3 holds the memory address of variable x.</p>
+
+        <table style="border-collapse:collapse; text-align:center;">
+            <thead>
+                <tr>
+                    <th><b>Step</b></th>
+                    <th><b>Binary Instruction</b></th>
+                    <th><b>English Description</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>01011101</td>
+                    <td><mark>Q9.1:</mark></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>11000110</td>
+                    <td><mark>Q9.2:</mark></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>01110111</td>
+                    <td><mark>Q9.3:</mark></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>10100101</td>
+                    <td><mark>Q9.4:</mark></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <ul>
+                <li><mark>Q10</mark>: How does this program determine if a number is odd or even? What is 
+                output in each case (even number, odd number).</li>
+                <li><mark>Q11</mark>: What does the last step do in the context of the whole program?</li>
+            </ul>
+        </p>
+
+    
+    <h2>Part 3: Advanced Conversions (Hexidecimal and Decimal)</h2>
+
+    <p>
+        As with the previous part, you will convert values to fill in tables describing system programs.
+        This time, the table also includes the conversions to decimal (base 10) and hexidecimal (base 16) number systems.
+    </p>
+
+    <h3>Program 3: Compute an Expression and Store Result in Memory</h3>
+    
+    <p>Fill in the missing cells in the table below. Afterwards, you will be asked to decipher what the program as a whole does.</p>
+    <p><b>Note:</b> Register 3 still holds the memory address of variable x.</p>
+
+        <table style="border-collapse:collapse; text-align:center;">
+        <thead>
+            <tr>
+                <th><b>Step</b></th>
+                <th><b>Binary Instruction</b></th>
+                <th><b>Decimal Conversion</b></th>
+                <th><b>Hexadecimal Conversion</b></th>
+                <th><b>English Description</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><mark>Q12.1:</mark></td>
+                <td>226</td>
+                <td><mark>Q12.2:</mark></td>
+                <td><mark>Q12.3:</mark></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><mark>Q12.4:</mark></td>
+                <td><mark>Q12.5:</mark></td>
+                <td>A1</td>
+                <td><mark>Q12.6:</mark></td>
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><mark>Q12.7:</mark></td>
+                <td><mark>Q12.8:</mark></td>
+                <td><mark>Q12.9:</mark></td>
+                <td>Store result in x</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <ul>
+            <li><mark>Q13</mark>: What is the overall expression being computed by this program?</li>
+        </ul>
+    </p>
+
+    <h3>Program 4: Mystery Program</h3>
+    <p>Fill in the missing cells in the table below. Afterwards, you will be asked to decipher what the program as a whole does.</p>
+    
+    <table style="border-collapse:collapse; text-align:center;">
+        <thead>
+            <tr>
+                <th><b>Step</b></th>
+                <th><b>Binary Instruction</b></th>
+                <th><b>Decimal Conversion</b></th>
+                <th><b>Hexadecimal Conversion</b></th>
+                <th><b>English Description</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><mark>Q14.1:</mark></td>
+                <td>160</td>
+                <td><mark>Q14.2:</mark></td>
+                <td><mark>Q14.3:</mark></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><mark>Q14.4:</mark></td>
+                <td><mark>Q14.5:</mark></td>
+                <td>A5</td>
+                <td><mark>Q14.6:</mark></td>
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>10101010</td>
+                <td><mark>Q14.7:</mark></td>
+                <td><mark>Q14.8:</mark></td>
+                <td><mark>Q14.9:</mark></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><mark>Q14.10</mark></td>
+                <td>175</td>
+                <td><mark>Q14.11:</mark></td>
+                <td><mark>Q14.12:</mark></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <ul>
+            <li><mark>Q15</mark>: What does this program do?</li>
+            <li><mark>Q16</mark>: In what situation(s) would this program be helpful to run?</li>
+        </ul>
+    </p>
+
+</main>
+
+</html>

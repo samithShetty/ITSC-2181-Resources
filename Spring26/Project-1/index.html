@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ITSC 2181 - Project 1</title>
+        <link rel="stylesheet" href="/ITSC-2181-Resources/css/main.css">
+    </head>
+
+    <body>
+        <main>
+
+            <h1>Project 1: Convolution in RISC-V Assembly</h1>
+
+            <p>This project covers the practical application of the following concepts in RISC-V assembly:</p>
+            <ul>
+                <li>Understanding the load-pattern of RISC-V Assembly</li>
+                <li>Register manipulation and data loading/storing with arrays.</li>
+                <li>Control flow with loops and branching.</li>
+                <li>Translating high-level algorithms to assembly language.</li>
+            </ul>
+
+            <h2>Project Description</h2>
+
+            <p>In this project, you will implement a simple 1-D <a href="https://en.wikipedia.org/wiki/Convolution">convolution</a> on an array of integers. You will first develop the algorithm in a high-level programming language of your choice, and then translate it to RISC-V assembly, and finally provide a write-up explaining your implementation.</p>
+
+            <h2>Algorithm Overview</h2>
+
+            <h3>What is convolution?</h3>
+
+            Convolution is a special type of computing process and algorithm that works to "smooth" a set of input values out. Convolution 
+            is frequently used in areas such as signal and image processing, where we might care about the general data within a signal or 
+            an image, but don't want to get hung up on the specifics. This is achieved by creating a new version of the signal, image, or 
+            other data, where each value is defined by some "convolution" of how that particular component was defined in the previous bit 
+            of data.</br><br>
+
+            A good example of this process is gaussian blurring, which involves allowing one pixel to be averaged with the other pixels 
+            around it. If a blue pixel is surrounded by other blue pixels and some red pixels, after convolution, it will be some shade of 
+            purple, as the other pixels' colors bleed into it. If we instead imagine a convolution applied to a signal, you might imagine a 
+            very high peak surrounded by low areas in the signal; after convolution, the peak is lower, pulled down by the surrounding low areas, 
+            while the low areas are pulled up a bit, influenced by the peak. We demonstrate some of these, and the algorithms for doing so, below.</br></br>
+
+            If you would like additional examples or references, check out this <a href="https://betterexplained.com/articles/intuitive-convolution/"> 
+                intuitive explanation of convolution
+            </a>.
+
+            <h3>Algorithm</h3>
+            
+            <p>First, here is the basic pseudocode outline of the convolution algorithm you will implement:</p>
+            <pre><code>
+<b>A = {[initial array values]}</b>    // Input array of fixed size N, initialized to random values
+<b>B = {0,0,0,...}</b>                 // Output array of fixed size N, initialized to zeros
+
+<b>for i from 0 to N-1 do:</b>
+    <b>sum = A[i]</b>
+    <b>if i > 0 then:</b>
+        <b>sum = sum + A[i-1]</b>      // Add left neighbor if it exists
+    <b>if i < N-1 then:</b>
+        <b>sum = sum + A[i+1]</b>      // Add right neighbor if it exists
+    <b>B[i] = sum / 3</b>              // Each element in B is just the average of the corresponsing element in A and its neighbors
+            
+<b>Print Array_A</b>                   // Output the original array
+<b>Print Array_B</b>                   // Output the convolved array
+            </code></pre>
+            <p>
+                This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
+                Notice how since the first and last elements are each missing a neighbor, we have to check before we try accessing the data before/after the current element in the array.
+            </p>
+            <img src="/ITSC-2181-Resources/Project-1/convolution-example.png" width=960 alt="A visual representation of the first example array input (listed below) being transformed. Array elements are shown as boxes with height corresponding to their value. The input array appears spiky with high peaks and low valleys, whereas the output is relatively smoother and level">
+    <p style="max-width:960px; word-wrap:break-word;">
+            <h3>Examples</h3>
+            <code>
+                <ul>
+                    <li><pre>[4, 2, 8, 7, 3, 9, 1, 6]       ---> [2, 4, 5, 6, 6, 4, 5, 2]</pre></li>
+                    <li><pre>[1, 1, 1, 1, 1]                ---> [0, 1, 1, 1, 0]</pre></li>
+                    <li><pre>[180, 54, 70, 32, 100, 4, 90]  ---> [78, 101, 52, 67, 45, 64, 31]</pre></li>
+               </ul>
+
+            </code>
+
+            <h2>Part 1: High-Level Implementation</h2>
+
+            <p>Implement the convolution algorithm in a high-level language of your choice (e.g. Python, Java) <b>EXCEPT</b> for C. Your code should:</p>
+            <ul>
+                <li>Define input array A and output array B.</li>
+                <li>Use a loop to compute the convolution for each element in the array.</li>
+                <li>Handle edge cases (e.g. the first and last elements).</li>
+                <li>Print the input and output arrays for verification.</li>
+            </ul>
+
+            <h2>Part 2: RISC-V Assembly Implementation</h2>
+
+            <p>Translate your high-level algorithm into RISC-V assembly. Your assembly program should:</p>
+            <ul>
+                <li>Initialize the input and output arrays in memory.</li>
+                <li>Implement a loop using branching instructions</li>
+                <li>Sum and take the average for each index with its neighbors <i>(Note: You are allowed to use the <code>div</code> pseudo-instruction for this Project).</i></li>
+                <li>Use branching instructions to handle the edge-cases.</li>
+                <li>Store results in the output array.</li>
+            </ul>
+
+            <h2>Part 3: Write-Up</h2>
+
+            <p>Write a short explanation (1-2 paragraphs) covering:</p>
+            <ul>
+                <li>Your algorithm design, including how you are handling edge cases.</li>
+                <li>Key differences between the high-level and assembly implementations.</li>
+                <li>Any challenges faced during translation and how you addressed them.</li>
+            </ul>
+
+            <h2>Submission Format</h2>
+
+            <p>For this project, you will submit a single document (Word or PDF) containing:</p>
+            <ul>
+                <li>Your complete high-level code.</li>
+                <li>Your complete RISC-V assembly code.</li>
+                <li>Screenshots of at least three (3) successful test runs with different input arrays (showing input, output, and any intermediate steps).</li>
+                <li>Your 1-2 paragraph write-up explaining the code and design decisions.</li>
+            </ul>
+
+            <h2>Grading Rubric</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Points</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>High-Level Implementation</td>
+                        <td>20</td>
+                        <td>Correct convolution logic, edge-case handling, and output.</td>
+                    </tr>
+                    <tr>
+                        <td>RISC-V Assembly</td>
+                        <td>40</td>
+                        <td>Accurate translation, proper register usage, loop implementation, and comments.</td>
+                    </tr>
+                    <tr>
+                        <td>Write-Up</td>
+                        <td>30</td>
+                        <td>Clear explanation of algorithm, design choices, and challenges.</td>
+                    </tr>
+                    <tr>
+                        <td>Testing and Submission</td>
+                        <td>10</td>
+                        <td>Screenshots of test runs and proper document formatting.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </main>
+    </body>
+</html>
