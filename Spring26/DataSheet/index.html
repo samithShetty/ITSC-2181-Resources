@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +22,7 @@
         <caption>RISC-V base integer instruction reference (mnemonic, name, semantics, and notes).</caption>
         <thead>
             <tr>
-                <th scope="col">Inst</th>
+                <th scope="col">Instruction</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Note</th>
@@ -96,27 +96,6 @@
             <tr><th scope="row">x18–x27</th><td>s2–s11</td><td>Saved registers</td><td>Callee</td></tr>
             <tr><th scope="row">x28–x30</th><td>t3–t5</td><td>Temporaries</td><td>Caller</td></tr>
             <tr><th scope="row">x31</th><td>t6</td><td>Temporary</td><td>Caller</td></tr>
-        </tbody>
-    </table>
-
-    <h2>Memory Allocation</h2>
-
-    <table>
-        <caption>Typical RARS memory layout shown in the reference image (addresses and segment direction).</caption>
-        <thead>
-            <tr>
-                <th scope="col">Marker</th>
-                <th scope="col">Address</th>
-                <th scope="col">Region</th>
-                <th scope="col">Growth direction (as depicted)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><th scope="row">SP →</th><td>0xFFFF FFF0</td><td>Stack</td><td>↓ (toward lower addresses)</td></tr>
-            <tr><th scope="row"></th><td></td><td>Dynamic Data</td><td>↑ (toward higher addresses)</td></tr>
-            <tr><th scope="row"></th><td>0x1000 0000</td><td>Static Data</td><td>—</td></tr>
-            <tr><th scope="row">PC →</th><td>0x0040 0000</td><td>Text</td><td>—</td></tr>
-            <tr><th scope="row"></th><td></td><td>Reserved</td><td>—</td></tr>
         </tbody>
     </table>
 
