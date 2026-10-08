@@ -34,6 +34,7 @@
     <p>
         For this lab, you will submit a single document (Word or .pdf) containing:
         <ul>
+            <li><b>The full code for each of your RISC-V Assembly programs</b></li>
             <li>Screenshots of successfully executed assembly code for each Part/Program</li>
             <li>Your answers to all conceptual questions, labeled by question number (e.g., "Q2.1.3")</li>
         </ul>
@@ -115,7 +116,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;.globl main<br>
             <br>
             main:<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Initialize registers<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Initialize registers for y and z<br>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Compute x<br>
             <br>
@@ -175,7 +176,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;.globl main<br>
             <br>
             main:<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Initialize y<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark> Initialize y to 2181 (Hint: You'll need multiple instructions)<br>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;# <mark>TODO:</mark>Compute z<br>
             <br>
@@ -195,19 +196,23 @@
     </p>
 
     <p>
-        <mark>Q2.2.1:</mark> What is the binary representation of y (2181)? What is the binary representation of ~y?
+        <mark>Q2.2.1:</mark> Explain how you got 2181 into a register. Why was it necessary to use a different approach from the previous program? Were there any other ways of accomplishing this?
     </p>
     
     <p>
-        <mark>Q2.2.2:</mark> What would be the result of z & y? What about z | y? Explain why.
+        <mark>Q2.2.2:</mark> What is the binary representation of y (2181)? What is the binary representation of ~y?
+    </p>
+    
+    <p>
+        <mark>Q2.2.3:</mark> What would be the result of z & y? What about z | y? Explain why.
     </p>
 
     <p>
-        <mark>Q2.2.3:</mark> What is the decimal value printed by your program for z? Does it match what you'd expect based on the value of y? Explain it's value using Two's Complement as a reference.
+        <mark>Q2.2.4:</mark> What is the decimal value printed by your program for z? Does it match what you'd expect based on the value of y? Explain it's value using Two's Complement as a reference.
     </p>
 
     <p>
-        <mark>Q2.2.4:</mark> Is there a way to perform the NOT operation using just a single logical instruction? (hint: Think about immediates) 
+        <mark>Q2.2.5:</mark> Is there a way to perform the NOT operation using just a single logical instruction? (hint: Think about immediates) 
         Explain your reasoning.
     </p>
 
