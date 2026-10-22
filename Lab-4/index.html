@@ -19,7 +19,6 @@
             <li>Understanding how C code compiles to assembly code.</li>
         </ul>
     
-    <p><strong><mark>This Lab is still being updated. Feel free to use the Part 1 instructions below to get started on your environment setup, but note that more conceptual questions and activities will be added later.</mark></strong></p>
     <h2>Lab Description</h2>
     <p>
         In this lab, you will be setting up your command line environment and compiling and running C code. 
@@ -119,10 +118,30 @@
 
     <h2>Part 3: Writing C Code</h2>
     <p>
-        For this component of the lab, you'll be re-implementing the convolution function from <a href="">Project 1</a>, this time writing the code using C. Use 
-        this same pseudocode from before as reference for what you need to implement:
+        For this component of the lab, you'll be implementing a program to perform a 1-D <a href="https://en.wikipedia.org/wiki/Convolution">convolution</a> on an array of integers.
     </p>
 
+    <h3>What is convolution?</h3>
+        <p>
+            Convolution is a special type of computing process and algorithm that works to "smooth" a set of input values out. Convolution 
+            is frequently used in areas such as signal and image processing, where we might care about the general data within a signal or 
+            an image, but don't want to get hung up on the specifics. This is achieved by creating a new version of the signal, image, or 
+            other data, where each value is defined by some "convolution" of how that particular component was defined in the previous bit 
+            of data.
+        </p>
+
+            A good example of this process is gaussian blurring, which involves allowing one pixel to be averaged with the other pixels 
+            around it. If a blue pixel is surrounded by other blue pixels and some red pixels, after convolution, it will be some shade of 
+            purple, as the other pixels' colors bleed into it. If we instead imagine a convolution applied to a signal, you might imagine a 
+            very high peak surrounded by low areas in the signal; after convolution, the peak is lower, pulled down by the surrounding low areas, 
+            while the low areas are pulled up a bit, influenced by the peak. We demonstrate some of these, and the algorithms for doing so, below.</br></br>
+
+            If you would like additional examples or references, check out this <a href="https://betterexplained.com/articles/intuitive-convolution/"> 
+                intuitive explanation of convolution
+            </a>.
+        </p>
+    
+    <h3>Pseudocode</h3>
     <pre><code>
         <b>A = {[initial array values]}</b>    // Input array of fixed size N, initialized to random values
         <b>B = {0,0,0,...}</b>                 // Output array of fixed size N, initialized to zeros
@@ -133,7 +152,7 @@
             <b>sum = sum + A[i-1]</b>      // Add left neighbor if it exists
         <b>if i < N-1 then:</b>
             <b>sum = sum + A[i+1]</b>      // Add right neighbor if it exists
-        <b>B[i] = sum / 3</b>              // Each element in B is just the average of the corresponsing element in A and its neighbors
+        <b>B[i] = sum / 3</b>              // Each element in B is just the average of the corresponding element in A and its neighbors
                 
         <b>Print Array_A</b>                   // Output the original array
         <b>Print Array_B</b>                   // Output the convolved array
@@ -146,22 +165,36 @@
     <ul>
         <li>Remember that every program in C needs to have a main function!</li>
         <li>Remember to specify the datatype of any variable you create!</li>
-        <li>Remember that printing in C requires a bit of setup; also remember to use it to debug!</li>
+        <li>If your program isn't producing the intended results, try adding in extra printing to debug!</li>
     </ul>
 
     <b>You will submit this code as part of your Lab-4 submission. You can either append it to your 
         submission document, or you can submit the <code>.c</code> code file separately.
     </b>
-
+    <p>
+        This program ultimately "smooths out" the values in the input array by averaging each element with its immediate neighbors.<br/> 
+        Notice how since the first and last elements are each missing a neighbor, we have to check before we try accessing the data before/after the current element in the array.
+    </p>
+    
+    <img src="/ITSC-2181-Resources/Project-1/convolution-example.png" width=960 alt="A visual representation of the first example array input (listed below) being transformed. Array elements are shown as boxes with height corresponding to their value. The input array appears spiky with high peaks and low valleys, whereas the output is relatively smoother and level">
+    
+    <p style="max-width:960px; word-wrap:break-word;">
+            <h3>Example Input/Results</h3>
+            <code>
+                <ul>
+                    <li><pre>[4, 2, 8, 7, 3, 9, 1, 6]       ---> [2, 4, 5, 6, 6, 4, 5, 2]</pre></li>
+                    <li><pre>[1, 1, 1, 1, 1]                ---> [0, 1, 1, 1, 0]</pre></li>
+                    <li><pre>[180, 54, 70, 32, 100, 4, 90]  ---> [78, 101, 52, 67, 45, 64, 31]</pre></li>
+               </ul>
+            </code>
     <h2>Part 3 Conceptual Questions</h2>
 
     <p>Once you've finished your implementation, answer the following conceptual questions:</p>
 
     <ul>
-        <li><mark>Q3.1</mark>: How difficult was this implementation compared to the other high level language you used in Part 1? Name that language, and 
-        justify your answer in 1-2 sentences, with specific examples.</li>
-        <li><mark>Q3.2</mark>: What parts of C made the most sense to you, and what parts made the least sense to you? Provide 3 examples total, at least one 
-        of each, and describe why they did or did not make sense to you.</li>
+        <li><mark>Q3.1</mark>: Explain how you implemented the algorithm in 1-2 sentences. Is there any way to more efficiently perform the convolution?</li>
+        <li><mark>Q3.2</mark>: Compare C to the previous programming languages you've used. What made the most sense to you, and what parts made the least sense to you? Provide 3 examples total, at least one of each case. 
+        <li><mark>Q3.3</mark>: In the second input example (all 1s), the first and last element of the convolution result are both 0. Why is this? What could you change about the program to make this number more accurate?</li>
     </ul>
 
     <h2>Part 4: Compiling C Code to RISC-V</h2>
